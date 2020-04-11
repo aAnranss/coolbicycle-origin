@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_start">
+
+    <TextView
+        android:id="@+id/slogen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:text="让世界在我的脚下转动"
+        android:textColor="@color/colorAccent"
+        android:layout_marginBottom="80dp"/>
+    <TextView
+        android:id="@+id/app_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:text="CoolBicycle Created by Yummy"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="48dp"/>
+
+
+</RelativeLayout>

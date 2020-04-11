@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">coolbicycle</string>
+    <string name="server_address">http://123.57.204.10/app</string>
+    <string name="action_user_settings">修改个人信息</string>
+    <string name="email">iamsuperman2862@gmail.com</string>
+    <string name="github">iamsuperman2862@gmail.com</string>
+</resources>

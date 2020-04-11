@@ -1,0 +1,44 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zy.coolbicycle">
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 连接网络权限，用于执行云端语音能力 -->
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 配置权限，用来记录应用配置信息 -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:name=".application.CoolBicycleApp"
+        android:theme="@style/AppTheme">
+        <activity android:name=".main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".main.SplashActivity" />
+        <activity android:name=".user.activity.sign.SignOnActivity" />
+        <activity android:name=".user.activity.sign.SignUpActivity" />
+        <activity android:name=".user.activity.detail.UserDetailActivity"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".user.activity.setting.SettingActivity"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".user.activity.setting.AboutActivity"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".user.activity.detail.UserInfoUpdateActivity"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".home.activity.SearchActivity"/>
+    </application>
+
+</manifest>
