@@ -10,7 +10,7 @@
     <color name="color_btn_blue">#1E90FF</color>
     <color name="color_btn_gray">#BEBEBE</color>
     <color name="color_text_white">#FFFFFF</color>
-
+    <color name="color_text_black">#000000</color>
     <color name="color_page_white">#FFFFFF</color>
     <color name="color_page_red">#D51717</color>
     <color name="color_page_gray">#BEBEBE</color>

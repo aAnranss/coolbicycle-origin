@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp">
-    <RelativeLayout
-        android:id="@+id/new_info"
+    android:layout_height="match_parent"
+    android:id="@+id/relative_layout">
+
+    <com.just.agentweb.AgentWebView
+        android:id="@+id/agent_webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:hardwareAccelerated="true"
+        android:configChanges="orientation|screenSize"
+        android:fadeScrollbars="true"/>
 
-        <TextView
-            android:id="@+id/tv_news_detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="title"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/tv_news_detail_source"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="source"
-            android:textSize="12dp"/>
-
-        <TextView
-            android:id="@+id/tv_news_detail_publish_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/tv_news_detail_source"
-            android:text="publish_time"
-            android:textSize="12dp"/>
-    </RelativeLayout>
-    <WebView
-        android:id="@+id/wv_news_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/new_info"
-        android:background="@color/colorAccent"/>
 </RelativeLayout>
