@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="10dp">
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="10dp">
 
     <ImageView
         android:id="@+id/iv_road_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@mipmap/iv_pic"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,32 +18,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:background="#55000000"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/iv_road_image"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/tv_road_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:text="RoadTitle"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textColor="@color/color_text_white"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_like_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginTop="16dp"
-            android:singleLine="true"
-            android:text="花世界景区-九康大桥-武汉花世界"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="10000人觉得行"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:textColor="@color/color_text_white"
-            android:textSize="18dp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
 

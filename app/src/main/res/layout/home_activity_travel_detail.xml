@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_travel_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_travel_article_info"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_travel_article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="这是一个标题"
+                android:textColor="@color/color_text_black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_travel_forum_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_travel_article_title"
+                android:text="来自  XXXXXXX"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_travel_article_views_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_travel_article_title"
+                android:layout_alignParentRight="true"
+                android:text="2333人浏览"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_travel_article_author_info"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/rl_travel_article_info"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:id="@+id/iv_travel_article_author"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/avatar" />
+
+            <TextView
+                android:id="@+id/tv_travel_article_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_toRightOf="@id/iv_travel_article_author"
+                android:gravity="center_vertical"
+                android:text="小飞侠" />
+
+            <TextView
+                android:id="@+id/tv_travel_article_publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_below="@id/tv_travel_article_author_name"
+                android:layout_toRightOf="@id/iv_travel_article_author"
+                android:gravity="center_vertical"
+                android:text="publish_time"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <com.just.agentweb.AgentWebView
+            android:id="@+id/travel_agent_webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_travel_article_author_info"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_travel_detail_comment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/travel_agent_webview"
+            android:orientation="vertical">
+
+            <include layout="@layout/home_item_travel_comment" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</ScrollView>

@@ -17,7 +17,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ItheimaHttp.init(this, "http://www.imxingzhe.com/");
-
         mWebView = new WebView(new MutableContextWrapper(this));
     }
 }

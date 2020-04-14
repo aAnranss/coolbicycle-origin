@@ -88,4 +88,5 @@ dependencies {
     //LoopViewPager
     implementation 'com.github.open-android:LoopViewPager:2.0.0'
 
+
 }

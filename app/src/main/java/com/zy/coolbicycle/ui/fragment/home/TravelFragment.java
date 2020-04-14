@@ -21,6 +21,7 @@ import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.bean.NewsBean;
 import com.zy.coolbicycle.bean.TravelBean;
 import com.zy.coolbicycle.ui.activity.home.NewsDetailActivity;
+import com.zy.coolbicycle.ui.activity.home.TravelDetailActivity;
 
 import org.itheima.recycler.adapter.BaseLoadMoreRecyclerAdapter;
 import org.itheima.recycler.listener.ItemClickSupport;
@@ -68,6 +69,7 @@ public class TravelFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
+        onClick();
     }
     private void onClick() {
 
@@ -76,11 +78,9 @@ public class TravelFragment extends Fragment {
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //String h5_url = mForumThreadlistBean.get(position).getH5_url();//获取H5页面地址
-               // String title = mForumThreadlistBean.get(position).getTitle();
-                Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                //intent.putExtra("title", title);//传入标题
-                //intent.putExtra("url", h5_url);//传入url
+                Intent intent = new Intent(getContext(), TravelDetailActivity.class);
+                intent.putExtra("tid",mForumThreadlistBean.get(position).getTid());
+                intent.putExtra("title",mForumThreadlistBean.get(position).getSubject());
                 startActivity(intent);
             }
         });

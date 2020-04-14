@@ -51,13 +51,6 @@ public class RecommendFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;  //下拉刷新
     @BindView(R.id.recycler_view)
     ItheimaRecyclerView recyclerView;       //RecyclerView
-    @BindView(R.id.recycler_header)
-    RecyclerViewHeader recyclerHeader;
-    @BindView(R.id.lvp_pager)
-    LoopViewPager lvpPager;
-
-    List<String> imgListString = new ArrayList<>();
-    List<String> titleListString = new ArrayList<>();
 
     private int state = 0;  //判断下拉刷新  or  加载更多
     private static final int STATE_MORE = 1;    //加载更多
@@ -77,31 +70,10 @@ public class RecommendFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initbanner();
         onClick();
 
     }
 
-    private void initbanner() {
-
-        Request request = ItheimaHttp.newGetRequest("api/v4/news?news_type=3&limit=5&page=1");//apiUrl格式："xxx/xxxxx"
-        Call call = ItheimaHttp.send(request, new HttpResponseListener<NewsBean>() {
-            @Override
-            public void onResponse(NewsBean newsBean, Headers headers) {
-
-                List<NewsBean.DataBean.DisplayTypeBean> bannerDatas = newsBean.getItemDatas();
-                for (int i = 0; i <= bannerDatas.size(); i++) {
-                    imgListString.add(bannerDatas.get(i).getPic_url());
-                    titleListString.add(bannerDatas.get(i).getTitle());
-                }
-                lvpPager.setImgData(imgListString);
-                lvpPager.setTitleData(titleListString);
-                lvpPager.start();
-            }
-
-        });
-
-    }
 
     private void onClick() {
 
@@ -157,8 +129,6 @@ public class RecommendFragment extends Fragment {
         };
         //开始请求
         pullToLoadMoreRecyclerView.requestData();
-
-        recyclerHeader.attachTo(recyclerView);
 
         pullToLoadMoreRecyclerView.setLoadingDataListener(new PullToLoadMoreRecyclerView.LoadingDataListener<NewsBean>() {
 

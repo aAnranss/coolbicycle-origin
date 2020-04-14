@@ -16,7 +16,6 @@ import com.just.agentweb.AgentWebConfig;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
 import com.zy.coolbicycle.R;
-import com.zy.coolbicycle.bean.NewsBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +27,8 @@ import butterknife.ButterKnife;
  */
 public class NewsDetailActivity extends AppCompatActivity {
 
-    NewsBean.DataBean.DisplayTypeBean bean;
     AgentWeb mAgentWeb;
-    @BindView(R.id.relative_layout)
+    @BindView(R.id.relative_layout_news_detail)
     RelativeLayout relativeLayout;
 
     @Override

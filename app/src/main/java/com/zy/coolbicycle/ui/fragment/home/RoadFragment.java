@@ -18,13 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.bean.RoadBean;
-import com.zy.coolbicycle.bean.RoadBookBean;
-import com.zy.coolbicycle.ui.activity.home.NewsDetailActivity;
+import com.zy.coolbicycle.ui.activity.home.RoadBookDetailActivity;
 
 import org.itheima.recycler.adapter.BaseLoadMoreRecyclerAdapter;
 import org.itheima.recycler.listener.ItemClickSupport;
@@ -84,11 +80,8 @@ public class RoadFragment extends Fragment {
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //String h5_url = mListBean.get(position).getH5_url();//获取H5页面地址
-                String title = mListBean.get(position).getTitle();
-                Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                intent.putExtra("title", title);//传入标题
-                //intent.putExtra("url", h5_url);//传入url
+                Intent intent = new Intent(getContext(), RoadBookDetailActivity.class);
+                intent.putExtra("id",mListBean.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -99,8 +92,8 @@ public class RoadFragment extends Fragment {
             @Override
             public int getItemResId() {
                 //recylerview item资源id
-                //return R.layout.home_item_road_recyclerview;
-                return R.layout.road;
+                return R.layout.home_item_road_recyclerview;
+                //return R.layout.road;
             }
 
             @Override
@@ -174,13 +167,6 @@ public class RoadFragment extends Fragment {
             manager.getDefaultDisplay().getMetrics(metrics);
             int width = metrics.widthPixels;//获取到的是px，像素，绝对像素，需要转化为dpi
 
-            /*Glide.with(mContext)
-                    .load(mData.getThumb()) //图片url地址
-                    .placeholder(R.mipmap.picture_loading) //加载时显示的图片
-                    .error(R.mipmap.picture_loading_error) //加载错误显示的图片
-                    .into(ivRoadImage);//图片显示的imageview
-            tvRoadTitle.setText(mData.getTitle());
-            tvLikeCount.setText(mData.getVia());*/
             Glide.with(mContext)
                     .load(mData.getPic()) //图片url地址
                     .override(width - 80, (int) ((width / 2) * 0.9))//固定大小
@@ -190,6 +176,7 @@ public class RoadFragment extends Fragment {
                     .into(ivRoadImage);//图片显示的imageview
             tvRoadTitle.setText(mData.getTitle());
             tvLikeCount.setText(String.valueOf(mData.getLike_count()) + "人觉得行");
+
         }
     }
 

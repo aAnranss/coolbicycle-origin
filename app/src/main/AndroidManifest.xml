@@ -42,6 +42,10 @@
         <activity android:name=".ui.activity.home.SearchActivity"/>
         <activity android:name=".ui.activity.home.NewsDetailActivity"
             android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".ui.activity.home.TravelDetailActivity"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity android:name=".ui.activity.home.RoadBookDetailActivity"
+            android:theme="@style/AppThemeActionBar"/>
     </application>
 
 </manifest>
