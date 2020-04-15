@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.zy.coolbicycle.ui.fragment.map.MapFragment;
+import com.zy.coolbicycle.ui.fragment.map.SportFragment;
 import com.zy.coolbicycle.ui.fragment.home.HomeFragment;
 import com.zy.coolbicycle.ui.fragment.user.UserFragment;
 
@@ -30,7 +30,7 @@ public class MainAdapter extends FragmentPagerAdapter {
                 mfragment = new HomeFragment();
                 break;
             case 1:
-                mfragment = new MapFragment();
+                mfragment = new SportFragment();
                 break;
             case 2:
                 mfragment = new UserFragment();

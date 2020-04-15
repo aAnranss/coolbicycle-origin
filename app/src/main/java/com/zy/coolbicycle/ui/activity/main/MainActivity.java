@@ -3,17 +3,15 @@ package com.zy.coolbicycle.ui.activity.main;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
+import com.baidu.mapapi.map.MapFragment;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.ui.fragment.home.HomeFragment;
-import com.zy.coolbicycle.ui.fragment.map.MapFragment;
+import com.zy.coolbicycle.ui.fragment.map.SportFragment;
 import com.zy.coolbicycle.ui.fragment.user.UserFragment;
 
 import java.util.ArrayList;
@@ -50,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
     private void initFragment() {
         //frameLayout = findViewById(R.id.frame);
         Fragment homeFragment = new HomeFragment();
-        Fragment mapFragment = new MapFragment();
+        Fragment sportFragment = new SportFragment();
         Fragment userFragment = new UserFragment();
         //添加fragment
         mfragments = new ArrayList<>();
         mfragments.add(homeFragment);
-        mfragments.add(mapFragment);
+        mfragments.add(sportFragment);
         mfragments.add(userFragment);
         if (homeFragment != null) {
             //默认选中home
