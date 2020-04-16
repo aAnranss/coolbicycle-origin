@@ -18,6 +18,7 @@ android {
         }
     }
 
+
     //使用Java8
     compileOptions {
 
@@ -35,8 +36,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //百度地图jar包
-    implementation files('libs/BaiduLBS_Android.jar')
+
     //第三方底部Tabbar
     implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -60,10 +60,9 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:annotations:4.11.0'
     //BaseRecyclerAndAdapter
     implementation 'com.github.open-android:BaseRecyclerAndAdapter:0.5.13'
-    implementation 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //RetrofitUtils
     implementation 'com.github.open-android:RetrofitUtils:0.1.9'
     //swiperefreshlayout
@@ -71,6 +70,5 @@ dependencies {
     //agentweb
     implementation 'com.just.agentweb:agentweb:4.1.3'
     //LoopViewPager
-    implementation 'com.github.open-android:LoopViewPager:2.0.0'
-
+    implementation files('libs/BaiduLBS_Android.jar')
 }

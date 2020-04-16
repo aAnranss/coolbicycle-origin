@@ -15,4 +15,5 @@
     <color name="color_page_red">#D51717</color>
     <color name="color_page_gray">#BEBEBE</color>
     <color name="color_page_blue">#1E90FF</color>
+    <color name="dkgray">#FF444444</color>
 </resources>

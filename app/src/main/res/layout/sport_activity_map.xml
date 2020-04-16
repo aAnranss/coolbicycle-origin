@@ -4,9 +4,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RadioGroup
+        android:id="@+id/RadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="#55000000"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="setMapMode"
+            android:text="普通图"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/statellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setMapMode"
+            android:text="卫星图"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </RadioGroup>
+
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true" />
+
 </LinearLayout>

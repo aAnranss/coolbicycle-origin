@@ -13,30 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.baidu.location.Address;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.itheima.retrofitutils.ItheimaHttp;
-import com.itheima.retrofitutils.Request;
-import com.itheima.retrofitutils.listener.HttpResponseListener;
 import com.zy.coolbicycle.R;
-import com.zy.coolbicycle.bean.WeatherBean;
 import com.zy.coolbicycle.ui.activity.map.MapActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import okhttp3.Headers;
-import retrofit2.Call;
 
 /**
  * 应用模块:导航
@@ -45,9 +42,6 @@ import retrofit2.Call;
  */
 public class SportFragment extends Fragment {
 
-    @BindView(R.id.bmapView)
-    MapView mMapView;
-    BaiduMap mBaiduMap;
     @BindView(R.id.bottom_sheet)
     RelativeLayout bottomSheet;
     @BindView(R.id.tv_location)
@@ -78,9 +72,18 @@ public class SportFragment extends Fragment {
     TextView tv789Unit;
     @BindView(R.id.btn_start_sport)
     Button btnStartSport;
+    @BindView(R.id.bmapView)
+    MapView mMapView;
 
+    BaiduMap mBaiduMap;
     private Unbinder unbinder;
-    private LocationClient mLocationClient;//定位客户端
+    LocationClient mLocationClient;
+
+    private String address;
+    private String province;
+    private String city;
+    private String district;
+    private String street;
 
     @Nullable
     @Override
@@ -96,7 +99,6 @@ public class SportFragment extends Fragment {
         initMap();
         initView();
         initData();
-
     }
 
 
@@ -111,9 +113,82 @@ public class SportFragment extends Fragment {
      * 初始化地图
      */
     private void initMap() {
+        //获取图层
         mBaiduMap = mMapView.getMap();
-        //开启移动端定位图层
+        UiSettings uiSettings = mBaiduMap.getUiSettings();
+        //显示指南针
+        uiSettings.setCompassEnabled(true);
+
+        //开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
+        //定位初始化
+        mLocationClient = new LocationClient(getContext());
+
+        //通过LocationClientOption设置LocationClient相关参数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(3000);
+        option.setIsNeedAddress(true);
+        option.setIsNeedLocationDescribe(true);
+        //设置打开自动回调位置模式，该开关打开后，期间只要定位SDK检测到位置变化就会主动回调给开发者
+        option.setOpenAutoNotifyMode();
+        //设置locationClientOption
+        mLocationClient.setLocOption(option);
+
+        //注册LocationListener监听器
+        MyLocationListener myLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(myLocationListener);
+        //开启地图定位图层
+        mLocationClient.start();
+
+    }
+
+    //构造地图数据
+    //我们通过继承抽象类BDAbstractListener并重写其onReceieveLocation方法来获取定位数据，并将其传给MapView。
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //mapView 销毁后不在处理新接收的位置
+            if (location == null || mMapView == null) {
+                return;
+            }
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(location.getDirection()).latitude(location.getLatitude())
+                    .longitude(location.getLongitude()).build();
+            tvLocation.setText(location.getCity()+location.getDistrict());
+            /*System.out.println("获取详细地址信息："+location.getAddrStr());//获取详细地址信息
+            System.out.println("获取省份："+location.getProvince());//获取省份
+            System.out.println("获取城市："+location.getCity()); //获取城市
+            System.out.println("获取街道信息："+location.getStreet()); //获取街道信息
+            System.out.println("获取区县："+location.getDistrict()); //获取区县*/
+            mBaiduMap.setMyLocationData(locData);
+            //更新地图
+            LatLng mNewCenter = new LatLng(location.getLatitude(), location.getLongitude());
+
+            MapStatus mapStatus = new MapStatus.Builder().target(mNewCenter).zoom(17).build();
+            //构造MapStatusUpdate，描述地图状态将要发生的变化
+            //MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(mNewCenter);
+            MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+            //改变地图状态
+            mBaiduMap.animateMapStatus(mapStatusUpdate);
+
+        }
+    }
+
+
+    private void initData() {
+        Address address;
+
+    }
+
+    /**
+     * 底部抽屉
+     */
+    private void initView() {
 
         final BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -126,75 +201,16 @@ public class SportFragment extends Fragment {
             public void onSlide(@NonNull View view, float v) {
                 //这里是拖拽中的回调，根据slideOffset可以做一些动画
                 //下拉时不完全退出
-                behavior.setPeekHeight(55);
+                behavior.setPeekHeight(60);
             }
         });
-
-        //定位初始化
-        mLocationClient = new LocationClient(getContext());
-        //通过LocationClientOption设置LocationClient相关参数
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(3000);   //发起定位请求的间隔，默认为0（只定位一次）
-
-        //设置locationClientOption
-        mLocationClient.setLocOption(option);
-
-        //注册LocationListener监听器
-        MyLocationListener myLocationListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(myLocationListener);
-        //开启地图定位图层
-        mLocationClient.start();
     }
-
-
-    private void initData() {
-        Request request = ItheimaHttp.newGetRequest("");//apiUrl格式："xxx/xxxxx"
-        Call call = ItheimaHttp.send(request, new HttpResponseListener<WeatherBean>() {
-            @Override
-            public void onResponse(WeatherBean weatherBean, Headers headers) {
-
-            }
-        });
-
-    }
-
-    private void initView() {
-
-
-    }//end of the iitView class
-
-    public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-            if (location == null || mMapView == null) {
-                return;
-            }
-            MyLocationData locData = new MyLocationData.Builder()
-                    .accuracy(location.getRadius())//获取定位精度，默认值为0.0f
-                    .direction(location.getDirection())
-                    .latitude(location.getLatitude())//获取纬度信息
-                    .longitude(location.getLongitude())//获取经度信息
-                    .build();
-            mBaiduMap.setMyLocationData(locData);
-
-            //将当前定位设置为地图的中心
-            LatLng mNewCenter = new LatLng(location.getLatitude(), location.getLongitude());//设置经纬度
-            //构造MapStatusUpdate实例，描述地图即将发生变化
-            MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(mNewCenter);
-            //改变地图状态
-            mBaiduMap.setMapStatus(mapStatusUpdate);
-        }
-    }//end of the MyLocationListener class
 
 
     @Override
     public void onDestroyView() {
-
-        mLocationClient.stop();//停止定位
-        mBaiduMap.setMyLocationEnabled(false);//关闭图层
+        mLocationClient.stop();
+        mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroyView();
@@ -213,4 +229,4 @@ public class SportFragment extends Fragment {
         mMapView.onResume();
         super.onResume();
     }
-}//end of the class
+}

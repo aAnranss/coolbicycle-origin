@@ -15,16 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
-import com.itheima.loopviewpager.LoopViewPager;
-import com.itheima.retrofitutils.ItheimaHttp;
-import com.itheima.retrofitutils.Request;
-import com.itheima.retrofitutils.listener.HttpResponseListener;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.ui.activity.home.NewsDetailActivity;
 import com.zy.coolbicycle.bean.NewsBean;
 
 import org.itheima.recycler.adapter.BaseLoadMoreRecyclerAdapter;
-import org.itheima.recycler.header.RecyclerViewHeader;
 import org.itheima.recycler.listener.ItemClickSupport;
 import org.itheima.recycler.viewholder.BaseRecyclerViewHolder;
 import org.itheima.recycler.widget.ItheimaRecyclerView;
@@ -37,7 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Headers;
-import retrofit2.Call;
 
 /**
  * 应用模块:
