@@ -7,7 +7,7 @@
 
     <ImageView
         android:layout_width="28dp"
-        android:layout_height="wrap_content"
+        android:layout_height="28dp"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/ic_bottom_sheet" />
 
@@ -21,10 +21,19 @@
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="your location" />
+            android:drawableLeft="@mipmap/ic_location_16dp"
+            android:drawablePadding="5dp"
+            android:text="定位当前位置" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2020年4月16日" />
 
     </RelativeLayout>
-
+    <!-- 天气数据+当前速度-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="--"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/tv_temperature_unit"
@@ -51,6 +59,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_temperature"
                 android:text="当前温度(℃)" />
+
+            <TextView
+                android:id="@+id/tv_wind_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_temperature_unit"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="--"
+                android:textSize="18dp" />
+
+            <!--<TextView
+                android:id="@+id/tv_wind_direction_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_wind_direction"
+                android:layout_centerHorizontal="true"
+                android:text="风向" />-->
 
         </RelativeLayout>
 
@@ -83,72 +109,71 @@
             android:layout_alignParentRight="true">
 
             <TextView
-                android:id="@+id/tv_distance"
+                android:id="@+id/tv_humidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="--"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/tv_distance_unit"
+                android:id="@+id/tv_humidity_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_distance"
-                android:text="里程(km)" />
+                android:layout_below="@id/tv_humidity"
+                android:text="当前湿度(%)" />
 
+            <TextView
+                android:id="@+id/tv_wind_strength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_humidity_unit"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="--"
+                android:textSize="18dp" />
+
+            <!--<TextView
+                android:id="@+id/tv_wind_strength_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_wind_strength"
+                android:layout_centerHorizontal="true"
+                android:text="风力(级)" />-->
         </RelativeLayout>
 
     </RelativeLayout>
-
+    <!--运动数据-->
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp">
 
         <RelativeLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true">
 
             <TextView
-                android:id="@+id/tv_123"
+                android:id="@+id/tv_mileage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="--"
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_123_unit"
+                android:id="@+id/tv_mileage_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_123"
-                android:text="当前温度(℃)" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:id="@+id/tv_456"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="--"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_456_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_456"
-                android:text="当前温度(℃)" />
+                android:layout_below="@id/tv_mileage"
+                android:layout_marginLeft="5dp"
+                android:text="总里程(km)" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -157,33 +182,101 @@
             android:layout_alignParentRight="true">
 
             <TextView
-                android:id="@+id/tv_789"
+                android:id="@+id/tv_average_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="--"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:text="--" />
 
             <TextView
-                android:id="@+id/tv_789_unit"
+                android:id="@+id/tv_average_speed_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_789"
-                android:text="当前温度(℃)" />
+                android:layout_below="@id/tv_average_speed"
+                android:text="平均时速(km/h)" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <Chronometer
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format="00:00:00"
+                android:gravity="center"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_sport_time_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timer"
+                android:layout_centerHorizontal="true"
+                android:text="运动时间" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_start_sport"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <!--按钮-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btn_blue_circle"
-        android:text="开始"
-        android:textColor="@color/color_btn_white"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/btn_start_sport"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/btn_blue_circle"
+            android:text="开始"
+            android:textColor="@color/color_btn_white"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_finish_sport"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toRightOf="@id/btn_continue_sport"
+                android:background="@drawable/btn_red_circle"
+                android:text="结束"
+                android:textColor="@color/color_btn_white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_continue_sport"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/btn_blue_circle"
+                android:text="继续"
+                android:textColor="@color/color_btn_white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

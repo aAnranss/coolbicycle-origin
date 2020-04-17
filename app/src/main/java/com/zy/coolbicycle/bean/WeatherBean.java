@@ -1,5 +1,7 @@
 package com.zy.coolbicycle.bean;
 
+import org.itheima.recycler.bean.BasePageBean;
+
 import java.util.List;
 
 /**
@@ -9,82 +11,33 @@ import java.util.List;
  */
 public class WeatherBean {
 
+
     /**
-     * status : ok
-     * api_version : v2.2
-     * api_status : active
-     * server_time : 1586934292
-     * location : [25.1552,121.6544]
-     * tzshift : 28800
-     * lang : zh_CN
-     * unit : metric
-     * result : {"status":"ok","temperature":22,"humidity":0.65,"cloudrate":0.37,"skycon":"PARTLY_CLOUDY_DAY","visibility":24.13,"dswrf":548.1,"wind":{"speed":19.09,"direction":292.58},"pres":99775.22,"apparent_temperature":20.2,"precipitation":{"local":{"status":"ok","datasource":"radar","intensity":0},"nearest":{"status":"ok","distance":24,"intensity":2}},"aqi":11,"pm25":8,"ultraviolet":{"index":5,"desc":"中等"},"comfort":{"index":6,"desc":"凉爽"}}
+     * resultcode : 200
+     * reason : successed!
+     * result : {"sk":{"temp":"22","wind_direction":"东北风","wind_strength":"1级","humidity":"86%","time":"21:38"},"today":{"temperature":"21℃~25℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"南风微风","week":"星期五","city":"来宾","date_y":"2020年04月17日","dressing_index":"舒适","dressing_advice":"建议着长袖T恤、衬衫加单裤等服装。年老体弱者宜着针织长袖衬衫、马甲和长裤。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较适宜","exercise_index":"较适宜","drying_index":""},"future":{"day_20200417":{"temperature":"21℃~25℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"南风微风","week":"星期五","date":"20200417"},"day_20200418":{"temperature":"21℃~26℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"南风微风","week":"星期六","date":"20200418"},"day_20200419":{"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期日","date":"20200419"},"day_20200420":{"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期一","date":"20200420"},"day_20200421":{"temperature":"17℃~23℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"北风微风","week":"星期二","date":"20200421"},"day_20200422":{"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期三","date":"20200422"},"day_20200423":{"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期四","date":"20200423"}}}
+     * error_code : 0
      */
 
-    private String status;
-    private String api_version;
-    private String api_status;
-    private int server_time;
-    private int tzshift;
-    private String lang;
-    private String unit;
+    private String resultcode;
+    private String reason;
     private ResultBean result;
-    private List<Double> location;
+    private int error_code;
 
-    public String getStatus() {
-        return status;
+    public String getResultcode() {
+        return resultcode;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setResultcode(String resultcode) {
+        this.resultcode = resultcode;
     }
 
-    public String getApi_version() {
-        return api_version;
+    public String getReason() {
+        return reason;
     }
 
-    public void setApi_version(String api_version) {
-        this.api_version = api_version;
-    }
-
-    public String getApi_status() {
-        return api_status;
-    }
-
-    public void setApi_status(String api_status) {
-        this.api_status = api_status;
-    }
-
-    public int getServer_time() {
-        return server_time;
-    }
-
-    public void setServer_time(int server_time) {
-        this.server_time = server_time;
-    }
-
-    public int getTzshift() {
-        return tzshift;
-    }
-
-    public void setTzshift(int tzshift) {
-        this.tzshift = tzshift;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public ResultBean getResult() {
@@ -95,342 +48,1004 @@ public class WeatherBean {
         this.result = result;
     }
 
-    public List<Double> getLocation() {
-        return location;
+    public int getError_code() {
+        return error_code;
     }
 
-    public void setLocation(List<Double> location) {
-        this.location = location;
+    public void setError_code(int error_code) {
+        this.error_code = error_code;
     }
 
     public static class ResultBean {
         /**
-         * status : ok
-         * temperature : 22
-         * humidity : 0.65
-         * cloudrate : 0.37
-         * skycon : PARTLY_CLOUDY_DAY
-         * visibility : 24.13
-         * dswrf : 548.1
-         * wind : {"speed":19.09,"direction":292.58}
-         * pres : 99775.22
-         * apparent_temperature : 20.2
-         * precipitation : {"local":{"status":"ok","datasource":"radar","intensity":0},"nearest":{"status":"ok","distance":24,"intensity":2}}
-         * aqi : 11
-         * pm25 : 8
-         * ultraviolet : {"index":5,"desc":"中等"}
-         * comfort : {"index":6,"desc":"凉爽"}
+         * sk : {"temp":"22","wind_direction":"东北风","wind_strength":"1级","humidity":"86%","time":"21:38"}
+         * today : {"temperature":"21℃~25℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"南风微风","week":"星期五","city":"来宾","date_y":"2020年04月17日","dressing_index":"舒适","dressing_advice":"建议着长袖T恤、衬衫加单裤等服装。年老体弱者宜着针织长袖衬衫、马甲和长裤。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较适宜","exercise_index":"较适宜","drying_index":""}
+         * future : {"day_20200417":{"temperature":"21℃~25℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"南风微风","week":"星期五","date":"20200417"},"day_20200418":{"temperature":"21℃~26℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"南风微风","week":"星期六","date":"20200418"},"day_20200419":{"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期日","date":"20200419"},"day_20200420":{"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期一","date":"20200420"},"day_20200421":{"temperature":"17℃~23℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"北风微风","week":"星期二","date":"20200421"},"day_20200422":{"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期三","date":"20200422"},"day_20200423":{"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期四","date":"20200423"}}
          */
 
-        private String status;
-        private int temperature;
-        private double humidity;
-        private double cloudrate;
-        private String skycon;
-        private double visibility;
-        private double dswrf;
-        private WindBean wind;
-        private double pres;
-        private double apparent_temperature;
-        private PrecipitationBean precipitation;
-        private int aqi;
-        private int pm25;
-        private UltravioletBean ultraviolet;
-        private ComfortBean comfort;
+        private SkBean sk;
+        private TodayBean today;
+        private FutureBean future;
 
-        public String getStatus() {
-            return status;
+        public SkBean getSk() {
+            return sk;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
+        public void setSk(SkBean sk) {
+            this.sk = sk;
         }
 
-        public int getTemperature() {
-            return temperature;
+        public TodayBean getToday() {
+            return today;
         }
 
-        public void setTemperature(int temperature) {
-            this.temperature = temperature;
+        public void setToday(TodayBean today) {
+            this.today = today;
         }
 
-        public double getHumidity() {
-            return humidity;
+        public FutureBean getFuture() {
+            return future;
         }
 
-        public void setHumidity(double humidity) {
-            this.humidity = humidity;
+        public void setFuture(FutureBean future) {
+            this.future = future;
         }
 
-        public double getCloudrate() {
-            return cloudrate;
-        }
-
-        public void setCloudrate(double cloudrate) {
-            this.cloudrate = cloudrate;
-        }
-
-        public String getSkycon() {
-            return skycon;
-        }
-
-        public void setSkycon(String skycon) {
-            this.skycon = skycon;
-        }
-
-        public double getVisibility() {
-            return visibility;
-        }
-
-        public void setVisibility(double visibility) {
-            this.visibility = visibility;
-        }
-
-        public double getDswrf() {
-            return dswrf;
-        }
-
-        public void setDswrf(double dswrf) {
-            this.dswrf = dswrf;
-        }
-
-        public WindBean getWind() {
-            return wind;
-        }
-
-        public void setWind(WindBean wind) {
-            this.wind = wind;
-        }
-
-        public double getPres() {
-            return pres;
-        }
-
-        public void setPres(double pres) {
-            this.pres = pres;
-        }
-
-        public double getApparent_temperature() {
-            return apparent_temperature;
-        }
-
-        public void setApparent_temperature(double apparent_temperature) {
-            this.apparent_temperature = apparent_temperature;
-        }
-
-        public PrecipitationBean getPrecipitation() {
-            return precipitation;
-        }
-
-        public void setPrecipitation(PrecipitationBean precipitation) {
-            this.precipitation = precipitation;
-        }
-
-        public int getAqi() {
-            return aqi;
-        }
-
-        public void setAqi(int aqi) {
-            this.aqi = aqi;
-        }
-
-        public int getPm25() {
-            return pm25;
-        }
-
-        public void setPm25(int pm25) {
-            this.pm25 = pm25;
-        }
-
-        public UltravioletBean getUltraviolet() {
-            return ultraviolet;
-        }
-
-        public void setUltraviolet(UltravioletBean ultraviolet) {
-            this.ultraviolet = ultraviolet;
-        }
-
-        public ComfortBean getComfort() {
-            return comfort;
-        }
-
-        public void setComfort(ComfortBean comfort) {
-            this.comfort = comfort;
-        }
-
-        public static class WindBean {
+        public static class SkBean {
             /**
-             * speed : 19.09
-             * direction : 292.58
+             * temp : 22
+             * wind_direction : 东北风
+             * wind_strength : 1级
+             * humidity : 86%
+             * time : 21:38
              */
 
-            private double speed;
-            private double direction;
+            private String temp;
+            private String wind_direction;
+            private String wind_strength;
+            private String humidity;
+            private String time;
 
-            public double getSpeed() {
-                return speed;
+            public String getTemp() {
+                return temp;
             }
 
-            public void setSpeed(double speed) {
-                this.speed = speed;
+            public void setTemp(String temp) {
+                this.temp = temp;
             }
 
-            public double getDirection() {
-                return direction;
+            public String getWind_direction() {
+                return wind_direction;
             }
 
-            public void setDirection(double direction) {
-                this.direction = direction;
+            public void setWind_direction(String wind_direction) {
+                this.wind_direction = wind_direction;
+            }
+
+            public String getWind_strength() {
+                return wind_strength;
+            }
+
+            public void setWind_strength(String wind_strength) {
+                this.wind_strength = wind_strength;
+            }
+
+            public String getHumidity() {
+                return humidity;
+            }
+
+            public void setHumidity(String humidity) {
+                this.humidity = humidity;
+            }
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
             }
         }
 
-        public static class PrecipitationBean {
+        public static class TodayBean {
             /**
-             * local : {"status":"ok","datasource":"radar","intensity":0}
-             * nearest : {"status":"ok","distance":24,"intensity":2}
+             * temperature : 21℃~25℃
+             * weather : 阴
+             * weather_id : {"fa":"02","fb":"02"}
+             * wind : 南风微风
+             * week : 星期五
+             * city : 来宾
+             * date_y : 2020年04月17日
+             * dressing_index : 舒适
+             * dressing_advice : 建议着长袖T恤、衬衫加单裤等服装。年老体弱者宜着针织长袖衬衫、马甲和长裤。
+             * uv_index : 最弱
+             * comfort_index :
+             * wash_index : 较适宜
+             * travel_index : 较适宜
+             * exercise_index : 较适宜
+             * drying_index :
              */
 
-            private LocalBean local;
-            private NearestBean nearest;
+            private String temperature;
+            private String weather;
+            private WeatherIdBean weather_id;
+            private String wind;
+            private String week;
+            private String city;
+            private String date_y;
+            private String dressing_index;
+            private String dressing_advice;
+            private String uv_index;
+            private String comfort_index;
+            private String wash_index;
+            private String travel_index;
+            private String exercise_index;
+            private String drying_index;
 
-            public LocalBean getLocal() {
-                return local;
+            public String getTemperature() {
+                return temperature;
             }
 
-            public void setLocal(LocalBean local) {
-                this.local = local;
+            public void setTemperature(String temperature) {
+                this.temperature = temperature;
             }
 
-            public NearestBean getNearest() {
-                return nearest;
+            public String getWeather() {
+                return weather;
             }
 
-            public void setNearest(NearestBean nearest) {
-                this.nearest = nearest;
+            public void setWeather(String weather) {
+                this.weather = weather;
             }
 
-            public static class LocalBean {
+            public WeatherIdBean getWeather_id() {
+                return weather_id;
+            }
+
+            public void setWeather_id(WeatherIdBean weather_id) {
+                this.weather_id = weather_id;
+            }
+
+            public String getWind() {
+                return wind;
+            }
+
+            public void setWind(String wind) {
+                this.wind = wind;
+            }
+
+            public String getWeek() {
+                return week;
+            }
+
+            public void setWeek(String week) {
+                this.week = week;
+            }
+
+            public String getCity() {
+                return city;
+            }
+
+            public void setCity(String city) {
+                this.city = city;
+            }
+
+            public String getDate_y() {
+                return date_y;
+            }
+
+            public void setDate_y(String date_y) {
+                this.date_y = date_y;
+            }
+
+            public String getDressing_index() {
+                return dressing_index;
+            }
+
+            public void setDressing_index(String dressing_index) {
+                this.dressing_index = dressing_index;
+            }
+
+            public String getDressing_advice() {
+                return dressing_advice;
+            }
+
+            public void setDressing_advice(String dressing_advice) {
+                this.dressing_advice = dressing_advice;
+            }
+
+            public String getUv_index() {
+                return uv_index;
+            }
+
+            public void setUv_index(String uv_index) {
+                this.uv_index = uv_index;
+            }
+
+            public String getComfort_index() {
+                return comfort_index;
+            }
+
+            public void setComfort_index(String comfort_index) {
+                this.comfort_index = comfort_index;
+            }
+
+            public String getWash_index() {
+                return wash_index;
+            }
+
+            public void setWash_index(String wash_index) {
+                this.wash_index = wash_index;
+            }
+
+            public String getTravel_index() {
+                return travel_index;
+            }
+
+            public void setTravel_index(String travel_index) {
+                this.travel_index = travel_index;
+            }
+
+            public String getExercise_index() {
+                return exercise_index;
+            }
+
+            public void setExercise_index(String exercise_index) {
+                this.exercise_index = exercise_index;
+            }
+
+            public String getDrying_index() {
+                return drying_index;
+            }
+
+            public void setDrying_index(String drying_index) {
+                this.drying_index = drying_index;
+            }
+
+            public static class WeatherIdBean {
                 /**
-                 * status : ok
-                 * datasource : radar
-                 * intensity : 0
+                 * fa : 02
+                 * fb : 02
                  */
 
-                private String status;
-                private String datasource;
-                private int intensity;
+                private String fa;
+                private String fb;
 
-                public String getStatus() {
-                    return status;
+                public String getFa() {
+                    return fa;
                 }
 
-                public void setStatus(String status) {
-                    this.status = status;
+                public void setFa(String fa) {
+                    this.fa = fa;
                 }
 
-                public String getDatasource() {
-                    return datasource;
+                public String getFb() {
+                    return fb;
                 }
 
-                public void setDatasource(String datasource) {
-                    this.datasource = datasource;
-                }
-
-                public int getIntensity() {
-                    return intensity;
-                }
-
-                public void setIntensity(int intensity) {
-                    this.intensity = intensity;
+                public void setFb(String fb) {
+                    this.fb = fb;
                 }
             }
+        }
 
-            public static class NearestBean {
+        public static class FutureBean {
+            /**
+             * day_20200417 : {"temperature":"21℃~25℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"南风微风","week":"星期五","date":"20200417"}
+             * day_20200418 : {"temperature":"21℃~26℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"南风微风","week":"星期六","date":"20200418"}
+             * day_20200419 : {"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期日","date":"20200419"}
+             * day_20200420 : {"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期一","date":"20200420"}
+             * day_20200421 : {"temperature":"17℃~23℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"北风微风","week":"星期二","date":"20200421"}
+             * day_20200422 : {"temperature":"21℃~28℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"北风微风","week":"星期三","date":"20200422"}
+             * day_20200423 : {"temperature":"22℃~27℃","weather":"小雨转阴","weather_id":{"fa":"07","fb":"02"},"wind":"南风微风","week":"星期四","date":"20200423"}
+             */
+
+            private Day20200417Bean day_20200417;
+            private Day20200418Bean day_20200418;
+            private Day20200419Bean day_20200419;
+            private Day20200420Bean day_20200420;
+            private Day20200421Bean day_20200421;
+            private Day20200422Bean day_20200422;
+            private Day20200423Bean day_20200423;
+
+            public Day20200417Bean getDay_20200417() {
+                return day_20200417;
+            }
+
+            public void setDay_20200417(Day20200417Bean day_20200417) {
+                this.day_20200417 = day_20200417;
+            }
+
+            public Day20200418Bean getDay_20200418() {
+                return day_20200418;
+            }
+
+            public void setDay_20200418(Day20200418Bean day_20200418) {
+                this.day_20200418 = day_20200418;
+            }
+
+            public Day20200419Bean getDay_20200419() {
+                return day_20200419;
+            }
+
+            public void setDay_20200419(Day20200419Bean day_20200419) {
+                this.day_20200419 = day_20200419;
+            }
+
+            public Day20200420Bean getDay_20200420() {
+                return day_20200420;
+            }
+
+            public void setDay_20200420(Day20200420Bean day_20200420) {
+                this.day_20200420 = day_20200420;
+            }
+
+            public Day20200421Bean getDay_20200421() {
+                return day_20200421;
+            }
+
+            public void setDay_20200421(Day20200421Bean day_20200421) {
+                this.day_20200421 = day_20200421;
+            }
+
+            public Day20200422Bean getDay_20200422() {
+                return day_20200422;
+            }
+
+            public void setDay_20200422(Day20200422Bean day_20200422) {
+                this.day_20200422 = day_20200422;
+            }
+
+            public Day20200423Bean getDay_20200423() {
+                return day_20200423;
+            }
+
+            public void setDay_20200423(Day20200423Bean day_20200423) {
+                this.day_20200423 = day_20200423;
+            }
+
+            public static class Day20200417Bean {
                 /**
-                 * status : ok
-                 * distance : 24
-                 * intensity : 2
+                 * temperature : 21℃~25℃
+                 * weather : 阴
+                 * weather_id : {"fa":"02","fb":"02"}
+                 * wind : 南风微风
+                 * week : 星期五
+                 * date : 20200417
                  */
 
-                private String status;
-                private int distance;
-                private int intensity;
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanX weather_id;
+                private String wind;
+                private String week;
+                private String date;
 
-                public String getStatus() {
-                    return status;
+                public String getTemperature() {
+                    return temperature;
                 }
 
-                public void setStatus(String status) {
-                    this.status = status;
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
                 }
 
-                public int getDistance() {
-                    return distance;
+                public String getWeather() {
+                    return weather;
                 }
 
-                public void setDistance(int distance) {
-                    this.distance = distance;
+                public void setWeather(String weather) {
+                    this.weather = weather;
                 }
 
-                public int getIntensity() {
-                    return intensity;
+                public WeatherIdBeanX getWeather_id() {
+                    return weather_id;
                 }
 
-                public void setIntensity(int intensity) {
-                    this.intensity = intensity;
+                public void setWeather_id(WeatherIdBeanX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanX {
+                    /**
+                     * fa : 02
+                     * fb : 02
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
                 }
             }
-        }
 
-        public static class UltravioletBean {
-            /**
-             * index : 5
-             * desc : 中等
-             */
+            public static class Day20200418Bean {
+                /**
+                 * temperature : 21℃~26℃
+                 * weather : 小雨
+                 * weather_id : {"fa":"07","fb":"07"}
+                 * wind : 南风微风
+                 * week : 星期六
+                 * date : 20200418
+                 */
 
-            private int index;
-            private String desc;
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
 
-            public int getIndex() {
-                return index;
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXX {
+                    /**
+                     * fa : 07
+                     * fb : 07
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
 
-            public void setIndex(int index) {
-                this.index = index;
+            public static class Day20200419Bean {
+                /**
+                 * temperature : 22℃~27℃
+                 * weather : 小雨转阴
+                 * weather_id : {"fa":"07","fb":"02"}
+                 * wind : 南风微风
+                 * week : 星期日
+                 * date : 20200419
+                 */
+
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
+
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXXX {
+                    /**
+                     * fa : 07
+                     * fb : 02
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
 
-            public String getDesc() {
-                return desc;
+            public static class Day20200420Bean {
+                /**
+                 * temperature : 21℃~28℃
+                 * weather : 阴转小雨
+                 * weather_id : {"fa":"02","fb":"07"}
+                 * wind : 北风微风
+                 * week : 星期一
+                 * date : 20200420
+                 */
+
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXXXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
+
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXXXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXXXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXXXX {
+                    /**
+                     * fa : 02
+                     * fb : 07
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
 
-            public void setDesc(String desc) {
-                this.desc = desc;
+            public static class Day20200421Bean {
+                /**
+                 * temperature : 17℃~23℃
+                 * weather : 小雨
+                 * weather_id : {"fa":"07","fb":"07"}
+                 * wind : 北风微风
+                 * week : 星期二
+                 * date : 20200421
+                 */
+
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXXXXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
+
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXXXXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXXXXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXXXXX {
+                    /**
+                     * fa : 07
+                     * fb : 07
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
-        }
 
-        public static class ComfortBean {
-            /**
-             * index : 6
-             * desc : 凉爽
-             */
+            public static class Day20200422Bean {
+                /**
+                 * temperature : 21℃~28℃
+                 * weather : 阴转小雨
+                 * weather_id : {"fa":"02","fb":"07"}
+                 * wind : 北风微风
+                 * week : 星期三
+                 * date : 20200422
+                 */
 
-            private int index;
-            private String desc;
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXXXXXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
 
-            public int getIndex() {
-                return index;
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXXXXXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXXXXXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXXXXXX {
+                    /**
+                     * fa : 02
+                     * fb : 07
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
 
-            public void setIndex(int index) {
-                this.index = index;
-            }
+            public static class Day20200423Bean {
+                /**
+                 * temperature : 22℃~27℃
+                 * weather : 小雨转阴
+                 * weather_id : {"fa":"07","fb":"02"}
+                 * wind : 南风微风
+                 * week : 星期四
+                 * date : 20200423
+                 */
 
-            public String getDesc() {
-                return desc;
-            }
+                private String temperature;
+                private String weather;
+                private WeatherIdBeanXXXXXXX weather_id;
+                private String wind;
+                private String week;
+                private String date;
 
-            public void setDesc(String desc) {
-                this.desc = desc;
+                public String getTemperature() {
+                    return temperature;
+                }
+
+                public void setTemperature(String temperature) {
+                    this.temperature = temperature;
+                }
+
+                public String getWeather() {
+                    return weather;
+                }
+
+                public void setWeather(String weather) {
+                    this.weather = weather;
+                }
+
+                public WeatherIdBeanXXXXXXX getWeather_id() {
+                    return weather_id;
+                }
+
+                public void setWeather_id(WeatherIdBeanXXXXXXX weather_id) {
+                    this.weather_id = weather_id;
+                }
+
+                public String getWind() {
+                    return wind;
+                }
+
+                public void setWind(String wind) {
+                    this.wind = wind;
+                }
+
+                public String getWeek() {
+                    return week;
+                }
+
+                public void setWeek(String week) {
+                    this.week = week;
+                }
+
+                public String getDate() {
+                    return date;
+                }
+
+                public void setDate(String date) {
+                    this.date = date;
+                }
+
+                public static class WeatherIdBeanXXXXXXX {
+                    /**
+                     * fa : 07
+                     * fb : 02
+                     */
+
+                    private String fa;
+                    private String fb;
+
+                    public String getFa() {
+                        return fa;
+                    }
+
+                    public void setFa(String fa) {
+                        this.fa = fa;
+                    }
+
+                    public String getFb() {
+                        return fb;
+                    }
+
+                    public void setFb(String fb) {
+                        this.fb = fb;
+                    }
+                }
             }
         }
     }

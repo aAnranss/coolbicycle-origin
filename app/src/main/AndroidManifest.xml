@@ -39,6 +39,11 @@
                 <action android:name="com.baidu.location.service_v5.0.0"/>
             </intent-filter>
         </service>
+        <service
+            android:name="com.baidu.trace.LBSTraceService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote" />
 
         <activity android:name=".ui.activity.main.MainActivity">
             <intent-filter>

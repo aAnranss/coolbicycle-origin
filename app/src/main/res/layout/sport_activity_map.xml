@@ -32,7 +32,6 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
     </RadioGroup>
-
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="match_parent"
