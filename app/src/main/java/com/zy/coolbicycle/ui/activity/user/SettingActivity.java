@@ -67,7 +67,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SettingActivity.this,"点击退出按钮",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SettingActivity.this, SignOnActivity.class);
+                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

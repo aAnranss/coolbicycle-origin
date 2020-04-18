@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.zy.coolbicycle.R;
+import com.zy.coolbicycle.ui.activity.user.LoginActivity;
 import com.zy.coolbicycle.ui.activity.user.UserDetailActivity;
 import com.zy.coolbicycle.ui.activity.user.SettingActivity;
 import com.zy.coolbicycle.adapter.ListViewAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -33,8 +35,10 @@ import butterknife.Unbinder;
  */
 public class UserFragment extends Fragment {
     private Unbinder unbinder;  //butterknife绑定
-    @BindView(R.id.iv_avatar) ImageView mAvatar;        //iv_avatar
-    @BindView(R.id.lv_items) ListView listView;           //lv_items
+    @BindView(R.id.iv_avatar)
+    ImageView mAvatar;        //iv_avatar
+    @BindView(R.id.lv_items)
+    ListView listView;           //lv_items
     private List<Item> mDatas;
     private ListViewAdapter listViewAdapter;
 
@@ -42,7 +46,7 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_page, null);
-        unbinder = ButterKnife.bind(this,view);//绑定butterknife
+        unbinder = ButterKnife.bind(this, view);//绑定butterknife
         return view;
     }
 
@@ -53,19 +57,16 @@ public class UserFragment extends Fragment {
         initData();
     }
 
+    @OnClick(R.id.iv_avatar)
+    public void ivAvatarOnClick(View view) {
+        Intent internt = new Intent(getActivity(), LoginActivity.class);
+        startActivity(internt);
+    }
+
     private void initView() {
         //头像的点击事件--->显示用户信息详情页
-        mAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent internt = new Intent(getActivity(), UserDetailActivity.class);
-                startActivity(internt);
-            }
-        });
-
         //加载自定义布局
         LayoutInflater inflater = getLayoutInflater();
-
         mDatas = new ArrayList<>();
         mDatas.add(new Item(R.mipmap.feedback, "意见反馈"));
         mDatas.add(new Item(R.mipmap.setting, "设置"));
@@ -98,4 +99,5 @@ public class UserFragment extends Fragment {
         super.onDestroy();
         unbinder.unbind();//销毁时解绑
     }
+
 }

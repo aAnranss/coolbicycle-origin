@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -48,7 +49,10 @@ dependencies {
     //okhttp
     implementation 'com.squareup.okio:okio:1.17.2'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    // Retrofit
+    /*implementation 'com.squareup.retrofit2:retrofit:2.7.0'*/
+    // Gson 服务器数据交互
+    implementation 'com.google.code.gson:gson:2.8.6'
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
@@ -76,4 +80,8 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/bos-android-sdk-1.0.3.jar')
     implementation files('libs/BaiduTraceSDK_v3_1_5.jar')
+
+    implementation 'com.yang.easyhttp:easyhttp:0.8.0'
+
+    implementation 'com.eminayar.panterdialog:panter-dialog:0.0.2.1'
 }

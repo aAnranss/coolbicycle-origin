@@ -54,8 +54,8 @@
         </activity>
 
         <activity android:name=".ui.activity.main.SplashActivity" />
-        <activity android:name=".ui.activity.user.SignOnActivity" />
-        <activity android:name=".ui.activity.user.SignUpActivity" />
+        <activity android:name=".ui.activity.user.LoginActivity" />
+        <activity android:name=".ui.activity.user.RegisterActivity" />
         <activity
             android:name=".ui.activity.user.UserDetailActivity"
             android:theme="@style/AppThemeActionBar" />

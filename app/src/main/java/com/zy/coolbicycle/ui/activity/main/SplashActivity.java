@@ -8,7 +8,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 
 import com.zy.coolbicycle.R;
-import com.zy.coolbicycle.ui.activity.user.SignOnActivity;
+import com.zy.coolbicycle.ui.activity.user.LoginActivity;
 
 /**
  * 应用模块:
@@ -33,7 +33,7 @@ public class SplashActivity extends Activity {
     }
 
     private void initMain() {
-        this.startActivity(new Intent(this, SignOnActivity.class));
+        this.startActivity(new Intent(this, LoginActivity.class));
         this.finish();
     }
 }

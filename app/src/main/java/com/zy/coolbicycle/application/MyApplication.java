@@ -6,6 +6,7 @@ import android.webkit.WebView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.itheima.retrofitutils.ItheimaHttp;
+import com.yang.easyhttp.EasyHttpClient;
 
 /**
  * 应用模块:
@@ -18,6 +19,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化HttpClient.
+        EasyHttpClient.init(this);
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
         ItheimaHttp.init(this, "http://www.imxingzhe.com/");

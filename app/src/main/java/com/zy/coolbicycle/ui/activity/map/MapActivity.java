@@ -34,7 +34,6 @@ import butterknife.ButterKnife;
  */
 public class MapActivity extends AppCompatActivity {
 
-
     @BindView(R.id.bmapView)
     MapView mMapView;
     BaiduMap mBaiduMap;

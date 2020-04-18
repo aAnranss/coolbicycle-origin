@@ -35,6 +35,9 @@ import com.zy.coolbicycle.bean.WeatherBean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,6 +113,7 @@ public class SportFragment extends Fragment {
         initView();
         initData();
         getWeather();
+        getDate();
         //drawRoute();
     }
 
@@ -124,21 +128,32 @@ public class SportFragment extends Fragment {
         return cityUtf8Code;
     }
 
+
+    /**
+     * 获取当前时间
+     */
+    public void getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd"); //设置时间格式
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08")); //设置时区
+        Date curDate = new Date(System.currentTimeMillis()); //获取当前时间
+        String createDate = formatter.format(curDate);   //格式转换
+        tvDate.setText(createDate);//日期
+    }
+
     /**
      * 实时获取天气情况
      */
     public void getWeather() {
-        String requestUrl = "http://v.juhe.cn/weather/index?";
+        String requestUrl = "http://apis.juhe.cn/simpleWeather/query?city=";
         String cityCode = enCode2Utf8(city); // 转码
-        Request request = ItheimaHttp.newGetRequest(requestUrl + "cityname=" + cityCode + "&dtype=json&format=1&key=2968c1184a68ce90ffb1256c7ba74398");//apiUrl格式："xxx/xxxxx"
+        Request request = ItheimaHttp.newGetRequest(requestUrl + cityCode + "&key=4029ce459022ea4a73f79ec0ee2d9d7f");//apiUrl格式："xxx/xxxxx"
         Call call = ItheimaHttp.send(request, new HttpResponseListener<WeatherBean>() {
             @Override
             public void onResponse(WeatherBean weatherBean, Headers headers) {
-                tvWindDirection.setText(weatherBean.getResult().getSk().getWind_direction());//风向
-                tvWindStrength.setText(weatherBean.getResult().getSk().getWind_strength());//风力
-                tvDate.setText(weatherBean.getResult().getToday().getDate_y());//日期
-                tvHumidity.setText(weatherBean.getResult().getSk().getHumidity());//适度
-                tvTemperature.setText(weatherBean.getResult().getSk().getTemp());//温度
+                tvWindDirection.setText(weatherBean.getResult().getRealtime().getDirect() + weatherBean.getResult().getRealtime().getPower());//风向
+                tvWindStrength.setText(weatherBean.getResult().getRealtime().getInfo());//风力
+                tvHumidity.setText(weatherBean.getResult().getRealtime().getHumidity());//适度
+                tvTemperature.setText(weatherBean.getResult().getRealtime().getTemperature());//温度
             }
         });
     }
