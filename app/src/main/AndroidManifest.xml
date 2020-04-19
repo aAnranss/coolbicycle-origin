@@ -15,6 +15,7 @@
     <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -32,11 +33,13 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
-        <service android:name="com.baidu.location.f"
+
+        <service
+            android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v5.0.0"/>
+                <action android:name="com.baidu.location.service_v5.0.0" />
             </intent-filter>
         </service>
         <service
@@ -79,6 +82,9 @@
             android:name=".ui.activity.home.RoadBookDetailActivity"
             android:theme="@style/AppThemeActionBar" />
         <activity android:name=".ui.activity.map.MapActivity" />
+        <activity
+            android:name=".ui.activity.user.FeedbackActivity"
+            android:theme="@style/AppThemeActionBar" />
     </application>
 
 </manifest>

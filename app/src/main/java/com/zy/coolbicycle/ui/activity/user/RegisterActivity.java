@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eminayar.panter.PanterDialog;
@@ -195,15 +199,19 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password
      */
     private void sign(String account, String password) {
+        //验证码输入错误，自动切换新的图片
         if (!code.equals(vcode)) {
             Toast.makeText(RegisterActivity.this, "验证码输入错误!", Toast.LENGTH_SHORT).show();
+            bitmap = CodeUtils.getInstance().createBitmap();
+            code = CodeUtils.getInstance().getCode();
+            ivCode.setImageBitmap(bitmap);
             return;
         }
         //显示加载进度条
         final ProgressDialog loadingDialog = new ProgressDialog(RegisterActivity.this);
         loadingDialog.setMessage("注册中...");
         loadingDialog.show();
-        String postUrl = "http://123.57.204.10/app/sign/register.php";
+        String postUrl = RegisterActivity.this.getApplication().getString(R.string.server_address) + "/sign/register.php";
 
         EasyRequestParams params = new EasyRequestParams();
         params.put("account", account);
@@ -217,7 +225,6 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onSuccess(String content) {
                         if (content.equals("success")) {
                             //验证成功，跳转至首页
-                            System.out.println("++++++++++++++++++" + content);
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
@@ -270,5 +277,30 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 返回键点击事件，返回登陆按钮
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
+
+    /**
+     * 显示顶部导航栏
+     */
+    public void showActionBar() {
+        //顶部导航
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("关于");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
     }
 }

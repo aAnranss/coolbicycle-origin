@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.zy.coolbicycle.R;
+import com.zy.coolbicycle.ui.activity.user.FeedbackActivity;
 import com.zy.coolbicycle.ui.activity.user.LoginActivity;
 import com.zy.coolbicycle.ui.activity.user.UserDetailActivity;
 import com.zy.coolbicycle.ui.activity.user.SettingActivity;
@@ -54,7 +55,6 @@ public class UserFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
     }
 
     @OnClick(R.id.iv_avatar)
@@ -80,17 +80,16 @@ public class UserFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        Intent feedback = new Intent(getContext(), FeedbackActivity.class);
+                        startActivity(feedback);
                         break;
                     case 1:
-                        Intent intent = new Intent(getContext(), SettingActivity.class);
-                        startActivity(intent);
+                        Intent setting = new Intent(getContext(), SettingActivity.class);
+                        startActivity(setting);
+                        break;
                 }
             }
         });
-
-    }
-
-    private void initData() {
 
     }
 

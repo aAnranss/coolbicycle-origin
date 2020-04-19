@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (checkLogin()) {
                     btnLogin.setBackground(getResources().getDrawable(R.drawable.btn_blue));
                 }
+
             }
         });
 
@@ -190,6 +191,10 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(msg)) {
             btnLogin.setEnabled(false);
             Toast.makeText(LoginActivity.this, "密码不能为空！", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (msg.trim().length() < 5) {
+            btnLogin.setEnabled(false);
+            Toast.makeText(LoginActivity.this, "密码不能少于六位！", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
