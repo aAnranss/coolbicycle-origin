@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eminayar.panter.PanterDialog;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.adapter.ListViewAdapter;
+import com.zy.coolbicycle.application.MyApplication;
 import com.zy.coolbicycle.entity.Item;
+import com.zy.coolbicycle.ui.activity.main.GuideActivity;
+import com.zy.coolbicycle.ui.activity.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class SettingActivity extends AppCompatActivity {
     private List<Item> mDatas;
     private ListViewAdapter listViewAdapter;
     private LayoutInflater layoutInflater;
+    private MyApplication mApplication;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,12 +61,43 @@ public class SettingActivity extends AppCompatActivity {
      */
     @OnClick(R.id.btn_logout)
     public void btnLogoutOnClick(View view) {
-        Toast.makeText(SettingActivity.this, "点击退出按钮", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
+        mApplication = (MyApplication) getApplication();
+        if (mApplication.isLogin) {
+            new PanterDialog(this)
+                    .setHeaderBackground(R.color.white)
+                    .setTitle("退出提示")
+                    .setTitleColor(R.color.black)
+                    .setMessage("您真的要残忍离开吗？")
+                    .setPositive("确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    })
+                    .setNegative("取消")
+                    .isCancelable(true)
+                    .show();
 
+        } else {
+            new PanterDialog(this)
+                    .setHeaderBackground(R.color.white)
+                    .setTitle("登陆提示")
+                    .setTitleColor(R.color.black)
+                    .setMessage("您还没有登陆，是否前往登陆/注册？")
+                    .setPositive("确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(SettingActivity.this, GuideActivity.class));
+                            finish();
+                        }
+                    })
+                    .setNegative("取消")
+                    .isCancelable(true)
+                    .show();
+        }
+
+    }
 
     private void initView() {
 
@@ -105,7 +140,7 @@ public class SettingActivity extends AppCompatActivity {
         //顶部导航
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("关于");
+            actionBar.setTitle("设置");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
