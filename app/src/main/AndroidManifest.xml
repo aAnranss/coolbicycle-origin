@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zy.coolbicycle">
 
@@ -11,10 +12,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 外存储读权限，构建语法需要用到此权限 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".application.MyApplication"
@@ -27,9 +29,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="gXQnA5ckh44tgq4x7l252wGAXynGv4Nx" />
-
-        <!--适配全面屏-->
+            android:value="gXQnA5ckh44tgq4x7l252wGAXynGv4Nx" /> <!-- 适配全面屏 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -55,10 +55,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.activity.main.GuideActivity" />
         <activity android:name=".ui.activity.main.SplashActivity" />
-        <activity android:name=".ui.activity.user.LoginActivity" />
-        <activity android:name=".ui.activity.user.RegisterActivity" />
+        <activity
+            android:name=".ui.activity.user.LoginActivity"
+            android:theme="@style/AppThemeActionBar" />
+        <activity
+            android:name=".ui.activity.user.RegisterActivity"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.activity.user.UserDetailActivity"
             android:theme="@style/AppThemeActionBar" />

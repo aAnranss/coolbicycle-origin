@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_backgroud">
 
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:src="@mipmap/logo" />
 
     <com.knifestone.hyena.view.edittext.ClearEditText
@@ -16,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_logo"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
         android:drawableLeft="@mipmap/ic_user"
         android:drawablePadding="10dp"
         android:hint="请输入账号"
@@ -29,7 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_account"
-        android:layout_margin="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
         android:drawableLeft="@mipmap/ic_password"
         android:drawablePadding="10dp"
         android:hint="请输入密码"
@@ -40,8 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
         android:orientation="horizontal">
 
         <com.knifestone.hyena.view.edittext.ClearEditText
@@ -65,17 +69,16 @@
         android:id="@+id/user_policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/v_code"
+        android:layout_below="@id/btn_register"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
-        android:gravity="center_vertical">
+        android:gravity="center">
 
-        <CheckBox
+        <TextView
             android:id="@+id/cb_comfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我已阅读" />
+            android:text="注册表示同意" />
 
         <TextView
             android:id="@+id/tv_privacy_policy"
@@ -83,13 +86,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
             android:layout_toRightOf="@id/cb_comfirm"
-            android:text="隐私协议" />
+            android:text="隐私协议"
+            android:textColor="@color/color_text_black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="和"
-            android:textColor="@color/color_text_black" />
+            android:text="和" />
 
         <TextView
             android:id="@+id/tv_service_policy"
@@ -97,7 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
             android:layout_toRightOf="@id/tv_privacy_policy"
-            android:text="服务协议" />
+            android:text="服务协议"
+            android:textColor="@color/color_text_black" />
     </LinearLayout>
 
 
@@ -105,11 +109,14 @@
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_policy"
-        android:layout_margin="50dp"
+        android:layout_below="@id/v_code"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/btn_gray"
         android:text="注    册"
         android:textColor="@color/color_text_white"
-        android:textSize="18dp" />
+        android:textSize="20dp" />
 
 </RelativeLayout>

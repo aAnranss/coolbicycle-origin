@@ -24,15 +24,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eminayar.panter.DialogType;
 import com.eminayar.panter.PanterDialog;
+import com.eminayar.panter.adapters.SingleChoiceAdapter;
 import com.knifestone.hyena.currency.InputFilterAdapter;
 import com.knifestone.hyena.currency.TextWatcherAdapter;
 import com.knifestone.hyena.view.edittext.ClearEditText;
 import com.knifestone.hyena.view.edittext.EyesEditText;
+import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
+import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.util.DialogSettings;
+import com.kongzue.dialog.v3.MessageDialog;
 import com.yang.easyhttp.EasyHttpClient;
 import com.yang.easyhttp.callback.EasyStringCallback;
 import com.yang.easyhttp.request.EasyRequestParams;
 import com.zy.coolbicycle.R;
+import com.zy.coolbicycle.ui.activity.main.GuideActivity;
 import com.zy.coolbicycle.util.CodeUtils;
 import com.zy.coolbicycle.util.MD5Util;
 
@@ -59,9 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.v_code)
     LinearLayout vCode;
     @BindView(R.id.btn_register)
-    Button btnSignUp;
-    @BindView(R.id.cb_comfirm)
-    CheckBox cbComfirm;
+    Button btnRegister;
     @BindView(R.id.tv_privacy_policy)
     TextView tvPrivacyPolicy;
     @BindView(R.id.tv_service_policy)
@@ -76,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.user_activity_register);
         ButterKnife.bind(this);
         initView();
+        showActionBar();
     }
 
 
@@ -86,9 +92,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .setHeaderBackground(R.color.white)
                 .setTitle("服务协议")
                 .setTitleColor(R.color.black)
-                .setPositive("确认")
                 .setMessage(R.string.service_policy)
-                .isCancelable(false)
+                .setPositive("确认")
+                .isCancelable(true)
                 .show();
     }
 
@@ -99,9 +105,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .setHeaderBackground(R.color.white)
                 .setTitle("隐私条框")
                 .setTitleColor(R.color.black)
-                .setPositive("确认")
                 .setMessage(R.string.privacy_policy)
-                .isCancelable(false)
+                .setPositive("确认")
+                .isCancelable(true)
                 .show();
     }
 
@@ -136,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (checkSignUp()) {
-                    btnSignUp.setBackground(getResources().getDrawable(R.drawable.btn_blue));
+                    btnRegister.setBackground(getResources().getDrawable(R.drawable.btn_blue));
                 }
             }
         });
@@ -144,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (checkSignUp()) {
-                    btnSignUp.setBackground(getResources().getDrawable(R.drawable.btn_blue));
+                    btnRegister.setBackground(getResources().getDrawable(R.drawable.btn_blue));
                 }
             }
         });
@@ -152,19 +158,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (checkSignUp()) {
-                    btnSignUp.setBackground(getResources().getDrawable(R.drawable.btn_blue));
+                    btnRegister.setBackground(getResources().getDrawable(R.drawable.btn_blue));
                 }
-            }
-        });
-        cbComfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    btnSignUp.setEnabled(false);
-                    Toast.makeText(RegisterActivity.this, "请先勾选已阅读！", Toast.LENGTH_SHORT).show();
-                    return;
-                } else
-                    btnSignUp.setBackground(getResources().getDrawable(R.drawable.btn_blue));
             }
         });
         getCode();
@@ -257,22 +252,30 @@ public class RegisterActivity extends AppCompatActivity {
      * 检测是否可以提交
      */
     private Boolean checkSignUp() {
-        btnSignUp.setEnabled(true);
+        btnRegister.setEnabled(true);
         String msg = etAccount.getText().toString();
         if (TextUtils.isEmpty(msg)) {
-            btnSignUp.setEnabled(false);
+            btnRegister.setEnabled(false);
             Toast.makeText(RegisterActivity.this, "账号不能为空！", Toast.LENGTH_SHORT).show();
             return false;
         }
         msg = etPassword.getText().toString();
         if (TextUtils.isEmpty(msg)) {
-            btnSignUp.setEnabled(false);
+            btnRegister.setEnabled(false);
             Toast.makeText(RegisterActivity.this, "密码不能为空！", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (msg.length() < 5) {
+            btnRegister.setEnabled(false);
+            Toast.makeText(RegisterActivity.this, "密码不能少于六位！", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (msg.length() > 15) {
+            btnRegister.setEnabled(false);
+            Toast.makeText(RegisterActivity.this, "密码不能多于十六位！", Toast.LENGTH_SHORT).show();
             return false;
         }
         msg = etCode.getText().toString();
         if (TextUtils.isEmpty(msg)) {
-            btnSignUp.setEnabled(false);
+            btnRegister.setEnabled(false);
             Toast.makeText(RegisterActivity.this, "请输入验证码！", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -298,9 +301,14 @@ public class RegisterActivity extends AppCompatActivity {
         //顶部导航
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("关于");
+            actionBar.setTitle("注册");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

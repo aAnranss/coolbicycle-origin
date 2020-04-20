@@ -5,41 +5,149 @@
     android:background="@color/color_page_white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!--头像-->
+    <RelativeLayout
+        android:id="@+id/rl_user_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_vertical">
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="头像"
+            android:textSize="16dp" />
 
         <com.zy.coolbicycle.widget.CircleImageView
             android:id="@+id/iv_detail_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_margin="20dp"
+            android:layout_width="61.8dp"
+            android:layout_height="61.8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/avatar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_detail_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="account"
-                android:textSize="18dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/lv_detail_items"
+    </RelativeLayout>
+    <!--昵称-->
+    <RelativeLayout
+        android:id="@+id/rl_user_nick_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="51.8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="昵称"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_user_detail_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_right_arrow_account"
+            android:text=" 我的昵称"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/iv_right_arrow_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_right_arrow" />
+    </RelativeLayout>
+    <!--账号-->
+    <RelativeLayout
+        android:id="@+id/rl_user_account"
+        android:layout_width="match_parent"
+        android:layout_height="51.8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="账号"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_user_detail_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="admin"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+    <!--邮箱-->
+    <RelativeLayout
+        android:id="@+id/rl_user_email"
+        android:layout_width="match_parent"
+        android:layout_height="51.8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="邮箱"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_user_detail_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_right_arrow_email"
+            android:text=" 123@456.com"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/iv_right_arrow_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_right_arrow" />
+    </RelativeLayout>
+    <!--注册时间-->
+    <RelativeLayout
+        android:id="@+id/rl_user_join_time"
+        android:layout_width="match_parent"
+        android:layout_height="51.8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="注册时间"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_join_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="2020年4月20日"
+            android:textSize="16dp" />
+    </RelativeLayout>
 </LinearLayout>

@@ -8,4 +8,5 @@
     <dimen name="poi_title_size">14sp</dimen>
     <dimen name="ui_size">12sp</dimen>
     <dimen name="actionbar_size">35sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

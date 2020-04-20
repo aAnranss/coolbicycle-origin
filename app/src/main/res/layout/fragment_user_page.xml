@@ -4,46 +4,105 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/user_info"
+        android:id="@+id/rl_user_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_height="61.8dp"
+        android:layout_margin="20dp">
 
-        <ImageView
+        <com.zy.coolbicycle.widget.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_width="61.8dp"
+            android:layout_height="61.8dp"
+            android:layout_marginRight="10dp"
             android:background="@mipmap/avatar" />
 
-        <TextView
-            android:id="@+id/tv_tip"
+        <LinearLayout
+            android:id="@+id/ll_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30.9dp"
+                android:gravity="center_vertical"
+                android:text="用户名"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tv_user_account"
+                android:layout_width="wrap_content"
+                android:layout_height="30.9dp"
+                android:gravity="center_vertical"
+                android:text="账号：user_account" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_avatar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="点击登录即可评论及发布内容"
-            android:textColor="@android:color/black"
-            android:textSize="12dp"
-            android:visibility="visible"/>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right_arrow" />
     </RelativeLayout>
 
-    <View
-        android:id="@+id/user_view_line"
+    <LinearLayout
+        android:id="@+id/ll_user_info"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/user_info"
-        android:layout_marginTop="20dp"
-        android:background="@color/color_line_view_gray" />
+        android:layout_height="61.8dp"
+        android:layout_below="@id/rl_user_info"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="61.8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="总里程" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/color_line_view_gray" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="61.8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="总里程" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/color_line_view_gray" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="61.8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="总里程" />
+    </LinearLayout>
 
     <!--选项栏-->
     <ListView
         android:id="@+id/lv_items"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/user_view_line" />
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_user_info"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>

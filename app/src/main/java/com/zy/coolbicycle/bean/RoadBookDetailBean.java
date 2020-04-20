@@ -9,7 +9,7 @@ import java.util.List;
  * 类描述:
  * Created by 卢文钏 on 2020/4/14
  */
-public class RoadBookDetailBean extends BasePageBean<RoadBookDetailBean.CollectionBean> {
+public class RoadBookDetailBean {
 
     /**
      * description : 全球海拔最高、难度最大、风光最壮美的多日自行车极限挑战赛
@@ -183,11 +183,6 @@ public class RoadBookDetailBean extends BasePageBean<RoadBookDetailBean.Collecti
 
     public void setCollection(List<CollectionBean> collection) {
         this.collection = collection;
-    }
-
-    @Override
-    public List getItemDatas() {
-        return collection;
     }
 
     public static class CollectionBean {
