@@ -71,6 +71,8 @@ public class SettingActivity extends AppCompatActivity {
                     .setPositive("确认", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            mApplication.isLogin = false;//设置登陆状态
+                            mApplication.userLogout();//重置当前用户，null,未登录状态
                             startActivity(new Intent(SettingActivity.this, MainActivity.class));
                             finish();
                         }

@@ -64,19 +64,19 @@ public class UserFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_page, null);
         unbinder = ButterKnife.bind(this, view);//绑定butterknife
-        mApplication = (MyApplication) getActivity().getApplication();
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mApplication = (MyApplication) getActivity().getApplication();
         initView();
         initData();
     }
 
     private void initData() {
-
+        
     }
 
     @OnClick(R.id.rl_user_info)
