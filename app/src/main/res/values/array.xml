@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="experience_list">
+        <item>毫无经验(小于1年)</item>
+        <item>略有经验(1~2年)</item>
+        <item>经验丰富(2年以上)</item>
+    </string-array>
+</resources>

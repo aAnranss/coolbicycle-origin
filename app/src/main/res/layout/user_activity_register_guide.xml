@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="请填写个人信息"
+        android:textSize="18dp" />
+
+    <com.knifestone.hyena.view.edittext.ClearEditText
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:drawableLeft="@mipmap/ic_email"
+        android:drawablePadding="10dp"
+        android:hint="邮箱"
+        android:singleLine="true" />
+
+    <com.knifestone.hyena.view.edittext.ClearEditText
+        android:id="@+id/et_ride_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:drawableLeft="@mipmap/ic_ride"
+        android:drawablePadding="10dp"
+        android:hint="骑行时间"
+        android:singleLine="true" />
+
+    <Spinner
+        android:id="@+id/spn_experience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:entries="@array/experience_list"
+        android:padding="10dp"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/btn_go_ahead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_code"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_blue"
+        android:text="下一步"
+        android:textColor="@color/color_text_white"
+        android:textSize="20dp" />
+</LinearLayout>

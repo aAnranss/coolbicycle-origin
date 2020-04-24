@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +21,7 @@ import com.zy.coolbicycle.adapter.ListViewAdapter;
 import com.zy.coolbicycle.application.MyApplication;
 import com.zy.coolbicycle.entity.Item;
 import com.zy.coolbicycle.ui.activity.main.GuideActivity;
+import com.zy.coolbicycle.ui.activity.main.MainActivity;
 import com.zy.coolbicycle.ui.activity.user.FeedbackActivity;
 import com.zy.coolbicycle.ui.activity.user.SettingActivity;
 import com.zy.coolbicycle.ui.activity.user.UserDetailActivity;
@@ -45,13 +44,19 @@ import static android.view.View.GONE;
  */
 public class UserFragment extends Fragment {
     @BindView(R.id.tv_user_nick_name)
-    TextView tvUserNickName;
+    TextView tvUserNickName;            //用户名
     @BindView(R.id.tv_user_account)
-    TextView tvUserAccount;
+    TextView tvUserAccount;             //账号
     @BindView(R.id.rl_user_info)
     RelativeLayout userInfo;
     @BindView(R.id.iv_avatar)
-    CircleImageView ivAvatar;
+    CircleImageView ivAvatar;           //头像
+    @BindView(R.id.tv_user_level)
+    TextView tvUserLevel;               //段位
+    @BindView(R.id.tv_user_ride_time)
+    TextView tvUserRideTime;            //骑行时间
+    @BindView(R.id.tv_ride_total_distance)
+    TextView tvRideTotalDistance;       //总里程
     private Unbinder unbinder;  //butterknife绑定
     @BindView(R.id.lv_items)
     ListView listView;           //lv_items
@@ -72,11 +77,12 @@ public class UserFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mApplication = (MyApplication) getActivity().getApplication();
         initView();
+        showUserInfo();
         initData();
     }
 
     private void initData() {
-        
+
     }
 
     @OnClick(R.id.rl_user_info)
@@ -96,9 +102,11 @@ public class UserFragment extends Fragment {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    private void initView() {
+    /**
+     * 加载用户信息
+     */
+    private void showUserInfo() {
         //头像的点击事件--->显示用户信息详情页
-
         if (mApplication.isLogin) {
             tvUserNickName.setText(mApplication.getLoginUser().getU_nickname());
             tvUserAccount.setText("账号：" + mApplication.getLoginUser().getU_account());
@@ -112,7 +120,12 @@ public class UserFragment extends Fragment {
             tvUserAccount.setVisibility(GONE);
             tvUserNickName.setText("您还没有登陆，点击前往登陆界面");
         }
+    }
 
+    /**
+     * 加载布局
+     */
+    private void initView() {
         //加载自定义布局
         LayoutInflater inflater = getLayoutInflater();
         mDatas = new ArrayList<>();
@@ -142,9 +155,20 @@ public class UserFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();//销毁时解绑
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
 }

@@ -46,6 +46,8 @@ import com.yang.easyhttp.callback.EasyStringCallback;
 import com.yang.easyhttp.request.EasyRequestParams;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.application.MyApplication;
+import com.zy.coolbicycle.ui.activity.main.MainActivity;
+import com.zy.coolbicycle.ui.fragment.user.UserFragment;
 import com.zy.coolbicycle.widget.CircleImageView;
 
 import java.io.BufferedReader;
@@ -348,6 +350,22 @@ public class UserDetailActivity extends AppCompatActivity {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
                         //向服务器发送请求
+                        EasyRequestParams params = new EasyRequestParams();
+                        params.put("account", mApplication.getLoginUser().getU_account());
+                        params.put("nickname", inputStr);
+                        EasyHttpClient.post(UserDetailActivity.this.getApplication().getString(R.string.server_address) + "/load/nickname.php",
+                                params, new EasyStringCallback() {
+                                    @Override
+                                    public void onSuccess(String content) {
+                                        mApplication.getLoginUser().setU_nickname(content);
+                                        tvNickName.setText(content);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Throwable error, String content) {
+
+                                    }
+                                });
                         return false;
                     }
                 })
@@ -375,6 +393,25 @@ public class UserDetailActivity extends AppCompatActivity {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
                         //向服务器请求
+                        EasyRequestParams params = new EasyRequestParams();
+                        params.put("account", mApplication.getLoginUser().getU_account());
+                        params.put("email", inputStr);
+                        EasyHttpClient.post(UserDetailActivity.this.getApplication().getString(R.string.server_address) + "/load/email.php",
+                                params, new EasyStringCallback() {
+
+
+                                    @Override
+                                    public void onSuccess(String content) {
+                                        mApplication.getLoginUser().setU_email(content);
+                                        tvUserEmail.setText(content);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Throwable error, String content) {
+                                        Toast.makeText(UserDetailActivity.this, "连接服务器失败，请检查您的网络！", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                });
                         return false;
                     }
                 })
@@ -406,8 +443,13 @@ public class UserDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        finish();
-        return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:// 点击返回图标事件
+                startActivity(new Intent(UserDetailActivity.this, MainActivity.class));
+                this.finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -422,4 +464,5 @@ public class UserDetailActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
         }
     }
+
 }

@@ -1,7 +1,9 @@
 package com.zy.coolbicycle.ui.fragment.map;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,16 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -36,7 +42,9 @@ import com.zy.coolbicycle.bean.WeatherBean;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import butterknife.BindView;
@@ -101,6 +109,7 @@ public class SportFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        SDKInitializer.initialize(getActivity().getApplicationContext());
         View view = inflater.inflate(R.layout.fragment_sport_page, null);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -175,7 +184,7 @@ public class SportFragment extends Fragment {
     }*/
 
     /**
-     * 计时器开始计时+开始导航
+     * 计时器开始计时+绘制路径
      *
      * @param view
      */
@@ -200,7 +209,7 @@ public class SportFragment extends Fragment {
     }
 
     /**
-     * 计时器结束计时 + 结束导航
+     * 计时器结束计时 + 结束绘制
      *
      * @param view
      */
@@ -215,7 +224,7 @@ public class SportFragment extends Fragment {
     }
 
     /**
-     * 计时器继续计时 + 继续导航
+     * 计时器继续计时 + 继续绘制
      *
      * @param view
      */
@@ -229,7 +238,42 @@ public class SportFragment extends Fragment {
         btnFinishSport.setVisibility(GONE);
     }
 
+    private double lat,lon;
+    //FileTransfer fileTransfer;
+    List<LatLng> points;
+    private Context context;
+    private void setMarker() {
+        points = new ArrayList<>();
+        Log.v("map", "setMarker : lat : " + lat + " lon : " + lon);
+        //定义Maker坐标点
+        LatLng point = new LatLng(lat, lon);
+        //fileTransfer.exportFile(fileName, System.currentTimeMillis() + "," + lat + "," + lon + "\n");
+        //构建Marker图标
+        /*
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.flag);
+        //构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+        //在地图上添加Marker，并显示
+        mBaiduMap.addOverlay(option);
+        */
+        //
+        //构建折线点坐标
+        points.add(point);
+        if (points.size() < 2)
+            return;
+        //设置折线的属性
+        OverlayOptions mOverlayOptions = new PolylineOptions()
+                .width(10)
+                .color(0xAAFF0000)
+                .points(points);
+        Overlay mPolyline = mBaiduMap.addOverlay(mOverlayOptions);
+        mBaiduMap.setMyLocationEnabled(true);
+        //清除之前绘制的点
+        LatLng last_latLng = points.get(points.size() - 1);
+        points.clear();
+        points.add(last_latLng);
 
+    }
     /**
      * 初始化地图
      */
@@ -239,7 +283,6 @@ public class SportFragment extends Fragment {
         UiSettings uiSettings = mBaiduMap.getUiSettings();
         //显示指南针
         uiSettings.setCompassEnabled(true);
-
         //开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMap.setTrafficEnabled(true); // 开启交通状况显示，参数为true时开启，false关闭

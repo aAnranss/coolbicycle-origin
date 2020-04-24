@@ -83,7 +83,9 @@ public class RoadBookDetailActivity extends AppCompatActivity {
         manager.getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;//获取到的是px，像素，绝对像素，需要转化为dpi
         String url = baseUrl+id;
+
         System.out.println("+++++++++++++++++++++"+url);
+
         EasyHttpClient.get(url, new EasyCustomCallback<RoadBookDetailBean>() {
 
             @Override

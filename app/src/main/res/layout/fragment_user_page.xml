@@ -60,12 +60,28 @@
         android:layout_marginRight="20dp"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="61.8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="总里程" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="段位" />
+
+            <TextView
+                android:id="@+id/tv_user_level"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="小白"
+                android:textSize="16dp" />
+        </LinearLayout>
 
         <View
             android:layout_width="1dp"
@@ -74,12 +90,29 @@
             android:layout_marginBottom="10dp"
             android:background="@color/color_line_view_gray" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="61.8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="总里程" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_ride_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="骑行时间" />
+
+            <TextView
+                android:id="@+id/tv_ride_total_distance"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0 年"
+                android:textSize="16dp" />
+        </LinearLayout>
 
         <View
             android:layout_width="1dp"
@@ -88,12 +121,29 @@
             android:layout_marginBottom="10dp"
             android:background="@color/color_line_view_gray" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="61.8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="总里程" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="总里程" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0 KM"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <!--选项栏-->

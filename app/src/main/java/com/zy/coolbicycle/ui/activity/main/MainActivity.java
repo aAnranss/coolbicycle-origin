@@ -2,6 +2,7 @@ package com.zy.coolbicycle.ui.activity.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> mfragments;
     @BindView(R.id.main_frame)
     FrameLayout frameLayout;
+    /*String isRefresh = "";
+
+    public String getIsRefresh() {
+        Intent intent = getIntent();
+        isRefresh = intent.getStringExtra("refresh");
+        System.out.println("+++++++++++++++" + isRefresh);
+        return isRefresh;
+    }*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         judgePermission();
         initFragment();
         initBottomTab();
+        getData();
+    }
+
+    private void getData() {
+
+
     }
 
 
@@ -86,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
             public void onSelected(int index, int old) {
                 Fragment currentFragment = mfragments.get(index);
                 Fragment oldFragment = mfragments.get(old);
-
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 if (currentFragment.isAdded()) {
                     transaction.hide(oldFragment).show(currentFragment).commit();
+
                 } else {
                     transaction.add(R.id.main_frame, currentFragment).hide(oldFragment).show(currentFragment).commit();
                 }
