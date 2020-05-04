@@ -3,11 +3,11 @@ package com.zy.coolbicycle.ui.activity.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,26 +15,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
-import com.itheima.retrofitutils.ItheimaHttp;
-import com.itheima.retrofitutils.Request;
-import com.itheima.retrofitutils.listener.HttpResponseListener;
+import com.google.gson.Gson;
 import com.yang.easyhttp.EasyHttpClient;
-import com.yang.easyhttp.callback.EasyCustomCallback;
+import com.yang.easyhttp.callback.EasyStringCallback;
 import com.zy.coolbicycle.R;
-import com.zy.coolbicycle.bean.NewsBean;
+import com.zy.coolbicycle.adapter.ListViewAdapter;
+import com.zy.coolbicycle.adapter.RoadListViewAdapter;
+import com.zy.coolbicycle.bean.RoadBookBean;
 import com.zy.coolbicycle.bean.RoadBookDetailBean;
+import com.zy.coolbicycle.entity.Item;
 
-import org.itheima.recycler.viewholder.BaseRecyclerViewHolder;
-import org.itheima.recycler.widget.ItheimaRecyclerView;
 import org.itheima.recycler.widget.PullToLoadMoreRecyclerView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Headers;
-import retrofit2.Call;
 
 /**
  * 应用模块:
@@ -50,10 +48,7 @@ public class RoadBookDetailActivity extends AppCompatActivity {
     TextView tvRoadDetailTitle;//标题
     @BindView(R.id.tv_like_count)
     TextView tvLikeCount;//点赞数
-    @BindView(R.id.rl_roadbook_recycler_viewa)
-    ItheimaRecyclerView rlRoadbookRecyclerViewa;//
-    @BindView(R.id.road_detail_swipe_refresh_layout)
-    SwipeRefreshLayout roadDetailSwipeRefreshLayout;
+
     @BindView(R.id.constraint_layout)
     ConstraintLayout constraintLayout;
     @BindView(R.id.iv_road_creater_head)
@@ -62,6 +57,8 @@ public class RoadBookDetailActivity extends AppCompatActivity {
     TextView tvCreaterName;
     @BindView(R.id.tv_road_description)
     TextView tvRoadDescription;
+    @BindView(R.id.lv_road_detail)
+    ListView lvRoadDetail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,33 +79,19 @@ public class RoadBookDetailActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;//获取到的是px，像素，绝对像素，需要转化为dpi
-        String url = baseUrl+id;
+        String url = baseUrl + id;
 
-        System.out.println("+++++++++++++++++++++"+url);
+        System.out.println("+++++++++++++++++++++" + url);
 
-        EasyHttpClient.get(url, new EasyCustomCallback<RoadBookDetailBean>() {
+        EasyHttpClient.get(url, new EasyStringCallback() {
 
             @Override
-            public void onSuccess(RoadBookDetailBean bean) {//ui thread.
-                Glide.with(RoadBookDetailActivity.this)
-                        .load(bean.getPic()) //图片url地址
-                        .override(width - 80, (int) ((width / 2) * 0.9))//固定大小
-                        .centerCrop()//图片适应
-                        .placeholder(R.mipmap.picture_loading) //加载时显示的图片
-                        .error(R.mipmap.picture_loading_error) //加载错误显示的图片
-                        .into(ivRoadImage);//图片显示的imageview
-                tvRoadDetailTitle.setText(bean.getTitle());
-                tvRoadDescription.setText(bean.getDescription());
-                tvCreaterName.setText(bean.getUser_name());
-                tvLikeCount.setText(bean.getLike_count());
-                Glide.with(RoadBookDetailActivity.this)
-                        .load(bean.getUser_pic()) //图片url地址
-                        .override(width - 80, (int) ((width / 2) * 0.9))//固定大小
-                        .centerCrop()//图片适应
-                        .placeholder(R.mipmap.picture_loading) //加载时显示的图片
-                        .error(R.mipmap.picture_loading_error) //加载错误显示的图片
-                        .into(ivRoadCreaterHead);//图片显示的imageview
-
+            public void onSuccess(String content) {
+                System.out.println("路书详情页申请数据：++++++++++++++++" + content);
+                Gson gson = new Gson();
+                RoadBookDetailBean bean = gson.fromJson(content, RoadBookDetailBean.class);
+                //传入当前用户信息
+                setRoadDetail(bean);
             }
 
             @Override
@@ -118,7 +101,37 @@ public class RoadBookDetailActivity extends AppCompatActivity {
         });
     }
 
-   /* private void initView() {
+    private List<RoadBookDetailBean.CollectionBean> mDatas;
+    private RoadListViewAdapter roadListViewAdapter;
+
+    public void setRoadDetail(RoadBookDetailBean bean) {
+        //加载自定义布局
+        LayoutInflater inflater = getLayoutInflater();
+        Glide.with(RoadBookDetailActivity.this)
+                .load(bean.getPic()) //图片url地址
+                .centerCrop()//图片适应
+                .placeholder(R.mipmap.picture_loading) //加载时显示的图片
+                .error(R.mipmap.picture_loading_error) //加载错误显示的图片
+                .into(ivRoadImage);//图片显示的imageview
+        tvRoadDetailTitle.setText(bean.getTitle());
+        tvRoadDescription.setText(bean.getDescription());
+        tvCreaterName.setText(bean.getUser_name());
+        tvLikeCount.setText(bean.getLike_count());
+        Glide.with(RoadBookDetailActivity.this)
+                .load(bean.getUser_pic()) //图片url地址
+                .centerCrop()//图片适应
+                .placeholder(R.mipmap.picture_loading) //加载时显示的图片
+                .error(R.mipmap.picture_loading_error) //加载错误显示的图片
+                .into(ivRoadCreaterHead);//图片显示的imageview
+
+        for (RoadBookDetailBean.CollectionBean list : bean.getCollection()) {
+            mDatas.add(list);
+        }
+        roadListViewAdapter = new RoadListViewAdapter(mDatas, inflater);
+        lvRoadDetail.setAdapter(roadListViewAdapter);
+    }
+
+    /*private void initView() {
 
         pullToLoadMoreRecyclerView = new PullToLoadMoreRecyclerView<RoadBookDetailBean>(roadDetailSwipeRefreshLayout, rlRoadbookRecyclerViewa, MyRecyclerViewHolder.class) {
             @Override
@@ -138,8 +151,6 @@ public class RoadBookDetailActivity extends AppCompatActivity {
         };
         //开始请求
         pullToLoadMoreRecyclerView.requestData();
-        tvRoadDetailTitle.setText(roadBookDetailBean.getTitle());
-        tvRoadDescription.setText(roadBookDetailBean.getDescription());
     }
 
     public static class MyRecyclerViewHolder extends BaseRecyclerViewHolder<RoadBookDetailBean.CollectionBean> {
@@ -153,11 +164,14 @@ public class RoadBookDetailActivity extends AppCompatActivity {
         TextView tvRoadCommentCount;
         @BindView(R.id.tv_road_dowmlaod_count)
         TextView tvRoadDowmlaodCount;
+        @BindView(R.id.road_detail_head)
+        CircleImageView roadDetailHead;
         //换成你布局文件中的id
 
         public MyRecyclerViewHolder(ViewGroup parentView, int itemResId) {
             super(parentView, itemResId);
         }
+
 
         */
 
@@ -166,18 +180,19 @@ public class RoadBookDetailActivity extends AppCompatActivity {
      *//*
         @Override
         public void onBindRealData() {
-            //tvRoadDescription.setText(mData.getDesc());
-            //tvCreaterName.setText(mData.user_name);
-            //ivRoadCreaterHead.setImageURI();
-            //tvLikeCount.setText();
-            //tvRoadDetailTitle.setText(mData.getTitle());
-            *//*Glide.with(mContext) //设置context
+            Glide.with(mContext) //设置context
+                    .load(mData.getUser_pic()) //图片url地址
+                    .centerCrop()//图片适应
+                    .placeholder(R.mipmap.picture_loading) //加载时显示的图片
+                    .error(R.mipmap.picture_loading_error) //加载错误显示的图片
+                    .into(roadDetailHead);//图片显示的imageview
+            Glide.with(mContext) //设置context
                     .load(mData.getImage()) //图片url地址
                     .override(1080, 270)//固定大小
                     .centerCrop()//图片适应
                     .placeholder(R.mipmap.picture_loading) //加载时显示的图片
                     .error(R.mipmap.picture_loading_error) //加载错误显示的图片
-                    .into(ivRoadImage);//图片显示的imageview*//*
+                    .into(ivRoadImage);//图片显示的imageview
             tvRoadTitle.setText(mData.getTitle());
             tvTotalDistance.setText(mData.getDistance() / 1000 + " km");
             tvRoadCommentCount.setText(mData.getComment_num());
@@ -185,9 +200,7 @@ public class RoadBookDetailActivity extends AppCompatActivity {
 
         }
 
-    }
-
-*/
+    }*/
     @Override
     protected void onDestroy() {
         super.onDestroy();

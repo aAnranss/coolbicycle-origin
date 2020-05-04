@@ -14,25 +14,21 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
-import com.itheima.retrofitutils.ItheimaHttp;
-import com.itheima.retrofitutils.Request;
-import com.itheima.retrofitutils.listener.HttpResponseListener;
+import com.google.gson.Gson;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
 import com.just.agentweb.AgentWebView;
-import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
+import com.yang.easyhttp.EasyHttpClient;
+import com.yang.easyhttp.callback.EasyStringCallback;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.bean.TravelDetailBean;
+import com.zy.coolbicycle.widget.CircleImageView;
 
-import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Headers;
-import retrofit2.Call;
 
 /**
  * 应用模块:
@@ -61,7 +57,7 @@ public class TravelDetailActivity extends AppCompatActivity {
     @BindView(R.id.travel_agent_webview)
     AgentWebView travelAgentWebview;
     @BindView(R.id.iv_comment_author_head)
-    ImageView ivCommentAuthorHead;
+    CircleImageView ivCommentAuthorHead;
     @BindView(R.id.tv_comment_author_name)
     TextView tvCommentAuthorName;
     @BindView(R.id.tv_post_time)
@@ -72,6 +68,8 @@ public class TravelDetailActivity extends AppCompatActivity {
     LinearLayout llTravelDetailCommentLayout;
     @BindView(R.id.relative_layout_travel_detail)
     RelativeLayout relativeLayoutTravelDetail;
+    @BindView(R.id.tv_comment_detail)
+    TextView tvCommentDetail;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,13 +77,56 @@ public class TravelDetailActivity extends AppCompatActivity {
         setContentView(R.layout.home_activity_travel_detail);
         ButterKnife.bind(this);
         showActionBar();
-
-        initData();
+        getData();
+        //initData();
 
     }
 
+    String completeUrl = "";
 
-    private void initData() {
+    private void getData() {
+        String baseUrl = "https://bbs.biketo.com/api/mobile/index.php?module=viewthread&page=1&version=5&tid=";
+        String realUrl = "&ordertype=0";
+        String tid = getIntent().getStringExtra("tid");
+        completeUrl = baseUrl + tid + realUrl;
+        System.out.println("++++++++++++++++" + completeUrl);
+        EasyHttpClient.get(completeUrl,
+                new EasyStringCallback() {
+                    @Override
+                    public void onSuccess(String content) {
+                        System.out.println("游记详情页申请数据：++++++++++++++++" + content);
+                        Gson gson = new Gson();
+                        TravelDetailBean bean = gson.fromJson(content.replaceAll("\\\\","").replaceAll(Matcher.quoteReplacement("$"), ""), TravelDetailBean.class);
+                        //传入当前用户信息
+                        System.out.println("++++++++++++++++" + bean);
+                        setTravelDetail(bean);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable error, String content) {
+
+                    }
+                });
+    }
+
+    public void setTravelDetail(TravelDetailBean bean) {
+        tvTravelArticleTitle.setText(bean.Variables.thread.getSubject());
+        tvTravelArticleAuthorName.setText(bean.Variables.thread.getAuthor());
+        //tvPostTime.setText(bean.Variables.thread.getDateline());
+        tvTravelArticleViewsCount.setText(bean.Variables.thread.getViews());
+        tvTravelForumName.setText(bean.Variables.thread.getForumname());
+        tvTravelArticlePublishTime.setText(bean.Variables.thread.getDateline());
+        //加载博客图片
+        Glide.with(this) //设置context
+                .load(bean.Variables.getMember_avatar()) //图片url地址
+                .placeholder(R.mipmap.picture_loading) //加载时显示的图片
+                .error(R.mipmap.picture_loading_error) //加载错误显示的图片
+                .into(ivTravelArticleAuthor);//图片显示的imageview
+
+        //tvCommentDetail.setText(bean.Variables.postlist);
+
+    }
+    /*private void initData() {
         String baseUrl = "https://bbs.biketo.com/api/mobile/index.php?module=viewthread&page=1&version=5&tid=";
         String realUrl = "&ordertype=0";
         String tid = getIntent().getStringExtra("tid");
@@ -118,7 +159,7 @@ public class TravelDetailActivity extends AppCompatActivity {
                 .createAgentWeb()
                 .ready()
                 .go(completeUrl);
-    }
+    }*/
 
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override

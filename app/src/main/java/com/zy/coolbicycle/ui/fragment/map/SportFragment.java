@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +23,13 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -38,7 +42,10 @@ import com.itheima.retrofitutils.Request;
 import com.itheima.retrofitutils.listener.HttpResponseListener;
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.bean.WeatherBean;
+import com.zy.coolbicycle.entity.FileTransfer;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -100,7 +107,7 @@ public class SportFragment extends Fragment {
     LocationClient mLocationClient;
     private boolean isStart = false; // 用于判断是否为开始状态
     private long recordingTime = 0;// 记录下来的总时间
-
+    FileTransfer fileTransfer;
     private String city = "来宾"; //默认值为来宾，不设默认值在无法定位时，会出现空指针异常的情况
     private String district;
     /*private List<LatLng> mLocationPoints;
@@ -118,11 +125,15 @@ public class SportFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initMap();
+        mBaiduMap = mMapView.getMap();
+        myListener = new MyLocationListener();
+        mLocationClient = new LocationClient(getContext());
+        mLocationClient.registerLocationListener(myListener);
         initView();
         initData();
         getWeather();
         getDate();
+        initLocationOption();
         //drawRoute();
     }
 
@@ -238,77 +249,42 @@ public class SportFragment extends Fragment {
         btnFinishSport.setVisibility(GONE);
     }
 
-    private double lat,lon;
-    //FileTransfer fileTransfer;
-    List<LatLng> points;
-    private Context context;
-    private void setMarker() {
-        points = new ArrayList<>();
-        Log.v("map", "setMarker : lat : " + lat + " lon : " + lon);
-        //定义Maker坐标点
-        LatLng point = new LatLng(lat, lon);
-        //fileTransfer.exportFile(fileName, System.currentTimeMillis() + "," + lat + "," + lon + "\n");
-        //构建Marker图标
-        /*
-        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.flag);
-        //构建MarkerOption，用于在地图上添加Marker
-        OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
-        //在地图上添加Marker，并显示
-        mBaiduMap.addOverlay(option);
-        */
-        //
-        //构建折线点坐标
-        points.add(point);
-        if (points.size() < 2)
-            return;
-        //设置折线的属性
-        OverlayOptions mOverlayOptions = new PolylineOptions()
-                .width(10)
-                .color(0xAAFF0000)
-                .points(points);
-        Overlay mPolyline = mBaiduMap.addOverlay(mOverlayOptions);
-        mBaiduMap.setMyLocationEnabled(true);
-        //清除之前绘制的点
-        LatLng last_latLng = points.get(points.size() - 1);
-        points.clear();
-        points.add(last_latLng);
 
-    }
     /**
-     * 初始化地图
+     * 该函数设置了位置地图的选项
      */
-    private void initMap() {
-        //获取图层
-        mBaiduMap = mMapView.getMap();
-        UiSettings uiSettings = mBaiduMap.getUiSettings();
-        //显示指南针
-        uiSettings.setCompassEnabled(true);
-        //开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        mBaiduMap.setTrafficEnabled(true); // 开启交通状况显示，参数为true时开启，false关闭
-        //定位初始化
-        mLocationClient = new LocationClient(getContext());
+    public BDAbstractLocationListener myListener;
 
-        //通过LocationClientOption设置LocationClient相关参数
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
-        option.setIsNeedAddress(true);
-        option.setIsNeedLocationDescribe(true);
+    private void initLocationOption() {
+        //定位服务的客户端。宿主程序在客户端声明此类，并调用，目前只支持在主线程中启动
+        LocationClientOption locationOption = new LocationClientOption();
+        //声明LocationClient类实例并配置定位参数
+        //注册监听函数
+        mLocationClient.registerLocationListener(myListener);
+        //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        locationOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        //可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
+        locationOption.setCoorType("bd09ll");
+        //可选，默认0，即仅定位一次，设置发起连续定位请求的间隔需要大于等于1000ms才是有效的
+        locationOption.setScanSpan(1000);
+        //可选，设置是否需要设备方向结果
+        locationOption.setNeedDeviceDirect(true);
+        //可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        locationOption.setLocationNotify(true);
+        //可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        locationOption.setIgnoreKillProcess(true);
+        //可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        locationOption.setIsNeedLocationDescribe(true);
+        //可选，默认false，设置是否开启Gps定位
+        locationOption.setOpenGps(true);
+        //设置打开自动回调位置模式，该开关打开后，期间只要定位SDK检测到位置变化就会主动回调给开发者，该模式下开发者无需再关心定位间隔是多少，定位SDK本身发现位置变化就会及时回调给开发者
+        locationOption.setOpenAutoNotifyMode();
         //设置打开自动回调位置模式，该开关打开后，期间只要定位SDK检测到位置变化就会主动回调给开发者
-        option.setOpenAutoNotifyMode();
-
-        //设置locationClientOption
-        mLocationClient.setLocOption(option);
-
-        //注册LocationListener监听器
-        MyLocationListener myLocationListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(myLocationListener);
-        //开启地图定位图层
+        locationOption.setOpenAutoNotifyMode(3000, 1, LocationClientOption.LOC_SENSITIVITY_HIGHT);
+        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+        mLocationClient.setLocOption(locationOption);
+        //开始定位
         mLocationClient.start();
-
     }
 
     //构造地图数据
@@ -332,8 +308,6 @@ public class SportFragment extends Fragment {
             //更新地图
             LatLng mNewCenter = new LatLng(location.getLatitude(), location.getLongitude());
             //将定位点加入集合
-            /*mLocationPoints = new ArrayList<>();
-            mLocationPoints.add(mNewCenter);*/
             MapStatus mapStatus = new MapStatus.Builder().target(mNewCenter).zoom(17).build();
             //构造MapStatusUpdate，描述地图状态将要发生的变化
             //MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(mNewCenter);
@@ -343,7 +317,6 @@ public class SportFragment extends Fragment {
 
         }
     }
-
 
     private void initData() {
 

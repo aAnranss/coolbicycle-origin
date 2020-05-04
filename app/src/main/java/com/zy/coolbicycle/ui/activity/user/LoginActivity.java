@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                         //String infoStream = content.substring(2,content.length()-3);
                         System.out.println("++++++++++++++++" + content);
                         Gson gson = new Gson();
-
+                        System.out.println(content);
                         if (!content.equals("failure")) {
                             UserInfoBean bean = gson.fromJson(content.substring(1, content.length() - 1), UserInfoBean.class);
                             //UserInfoBean bean = gson.fromJson(content,UserInfoBean.class);

@@ -98,6 +98,9 @@
         <activity
             android:name=".ui.activity.user.FeedbackActivity"
             android:theme="@style/AppThemeActionBar" />
+        <activity android:name=".ui.activity.map.BNaviGuideActivity"/>
+        <activity android:name=".ui.activity.home.RDetailActivity"
+            android:theme="@style/AppThemeActionBar"/>
     </application>
 
 </manifest>

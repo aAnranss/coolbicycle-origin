@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
 
         fragments.add(new RecommendFragment());
         fragments.add(new TravelFragment());
-        fragments.add(new RoadFragment());
+        fragments.add(new RFragment());
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override

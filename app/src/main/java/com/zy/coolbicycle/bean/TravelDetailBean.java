@@ -1,7 +1,5 @@
 package com.zy.coolbicycle.bean;
 
-import org.itheima.recycler.bean.BasePageBean;
-
 import java.util.List;
 
 /**
@@ -9,7 +7,7 @@ import java.util.List;
  * 类描述:
  * Created by 卢文钏 on 2020/4/14
  */
-public class TravelDetailBean extends BasePageBean<TravelDetailBean.VariablesBean.PostlistBean> {
+public class TravelDetailBean {
 
     /**
      * Version : 5
@@ -43,11 +41,6 @@ public class TravelDetailBean extends BasePageBean<TravelDetailBean.VariablesBea
 
     public void setVariables(VariablesBean Variables) {
         this.Variables = Variables;
-    }
-
-    @Override
-    public List getItemDatas() {
-        return Variables.postlist;
     }
 
     public static class VariablesBean {

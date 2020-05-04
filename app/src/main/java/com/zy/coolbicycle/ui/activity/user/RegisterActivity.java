@@ -219,6 +219,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String content) {
                         if (content.equals("success")) {
+                            System.out.println(content);
                             //验证成功，跳转至首页
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);

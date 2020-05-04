@@ -51,7 +51,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
-            <ImageView
+            <com.zy.coolbicycle.widget.CircleImageView
                 android:id="@+id/iv_travel_article_author"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

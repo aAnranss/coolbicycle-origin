@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.zy.coolbicycle.R;
 import com.zy.coolbicycle.ui.fragment.home.HomeFragment;
+import com.zy.coolbicycle.ui.fragment.map.MapFragment;
 import com.zy.coolbicycle.ui.fragment.map.SportFragment;
 import com.zy.coolbicycle.ui.fragment.user.UserFragment;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFragment() {
         //frameLayout = findViewById(R.id.frame);
         Fragment homeFragment = new HomeFragment();
-        Fragment sportFragment = new SportFragment();
+        Fragment sportFragment = new MapFragment();
         Fragment userFragment = new UserFragment();
         //添加fragment
         mfragments = new ArrayList<>();
